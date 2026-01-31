@@ -1,0 +1,16 @@
+{
+  "world": "room",
+  "zones": [
+    {"id": "room-a"}
+  ],
+  "entities": [
+    {
+      "id": "cube-001",
+      "zone": "room-a",
+      "components": [
+        {"type": "transform", "data": {"position": [0, 0, 0]}},
+        {"type": "render", "data": {"mesh": "cube"}}
+      ]
+    }
+  ]
+}
