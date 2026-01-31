@@ -13,6 +13,8 @@ runtime/lattice/trace/
 # mind-git projections (non-authoritative)
 projections/mind-git/
 world-ir/build/
+runtime/world/snapshots/
+runtime/world/trace/
 
 # Lattice runtime state (generated)
 runtime/lattice/state/
