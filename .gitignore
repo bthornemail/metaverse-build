@@ -15,6 +15,7 @@ projections/mind-git/
 world-ir/build/
 runtime/world/snapshots/
 runtime/world/trace/
+runtime/sync-world/state/
 
 # Lattice runtime state (generated)
 runtime/lattice/state/

@@ -1,0 +1,15 @@
+# Phase 29 — Multiplayer Sync Scaffolding
+Date: 2026-01-31T15:34:03-08:00
+IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
+Base Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.snapshot.json
+Peer Logs: /home/main/devops/metaverse-build/runtime/sync-world/state/logs
+Merged Log: /home/main/devops/metaverse-build/runtime/sync-world/state/merged.jsonl
+Peer A Snapshot: /home/main/devops/metaverse-build/runtime/sync-world/state/peerA.snapshot.json
+Peer B Snapshot: /home/main/devops/metaverse-build/runtime/sync-world/state/peerB.snapshot.json
+Hash Peer A: 82048322a23a3e5e375f38963595f2608aeda482fd54ec59b1497365d03663f9
+Hash Peer B: 82048322a23a3e5e375f38963595f2608aeda482fd54ec59b1497365d03663f9
+PASS: peers converge
+Valid-Only Hash: 82048322a23a3e5e375f38963595f2608aeda482fd54ec59b1497365d03663f9
+HALT A Log: HALT 4 HALT: NotOwner
+HALT B Log: HALT 4 HALT: NotOwner
+PASS: authority rejection preserves state
