@@ -108,7 +108,7 @@ with open(out_path, "w") as fh:
     fh.write(f"Generated: {datetime.now(timezone.utc).isoformat()}\n\n")
     prev = None
     for e in entries:
-        fh.write(f"## Plan {e['hash'][:8]}…\n")
+        fh.write(f"## {e['hash'][:8]}\n")
         fh.write(f"- Timestamp: {e['t']}\n")
         fh.write(f"- Selected peer: {e['peer']}\n")
         if e["trace_tcp"]:
