@@ -1,0 +1,29 @@
+# Phase 23A — Beacon-Driven Basis Flip Demo
+Date: 2026-01-31T12:07:29-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+Beacon port: 9335
+
+## Start beacon listener + observer
+## Beacon 1 (host-001, rtt=20, bus=7000)
+Beacons log (after beacon 1):
+{"type":"beacon","node":"host-001","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":20,"epoch":1769890049}
+Observed (after beacon 1):
+{"type":"beacon","node":"host-001","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":20,"epoch":1769890049}
+Plan hash: bbbe61ee0cce5906d0c1bed17b44c2dd5bf9395fa0bb33234800f36975e602c6
+## PASS (valid)
+Bytes after PASS: 6
+## Beacon 2 (host-002, rtt=1, bus=7001)
+Beacons log (after beacon 2):
+{"type":"beacon","node":"host-001","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":20,"epoch":1769890049}
+{"type":"beacon","node":"host-002","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769890051}
+Observed (after beacon 2):
+{"type":"beacon","node":"host-001","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":20,"epoch":1769890049}
+{"type":"beacon","node":"host-002","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769890051}
+Plan hash: df375129b7c25f45da5c0b7bb1645110a4af0002a5c063517efa1a0df84106e5
+## FAIL (invalid halts)
+HALT: no publish
+Exit code: 1
+Bytes after FAIL: 6
+Delta (should be 0 on FAIL): 0
+## Plan change
+Plan changed: yes
