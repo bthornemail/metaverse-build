@@ -1,0 +1,16 @@
+Phase 17 PASS/FAIL Transcript
+============================
+
+PASS run:
+ID_PREFIX=valid TRACE_INPUT="hello" ./metaverse-build/pipelines/identity-trace-authority-sync-rpc.sh
+error: missing required dotfile: world/.genesis
+chain.out: present
+chain.out contents:
+
+FAIL run:
+ID_PREFIX="" TRACE_INPUT="hello" ./metaverse-build/pipelines/identity-trace-authority-sync-rpc.sh
+/home/main/devops/metaverse-build/pipelines/identity-trace-authority-sync-rpc.sh: line 19: ID_PREFIX: ID_PREFIX must be set
+chain.out: present (should be absent or unchanged)
+chain.out contents (first 5 lines):
+
+Done

@@ -1,0 +1,25 @@
+# Capability: Identity
+# Authority: tetragrammatron-os
+# Justification: ../JUSTIFICATION.md
+# Inputs: address-schema.yaml
+# Outputs: schema gate decisions
+# Trace: no
+schema: tetragrammatron/address-schema@v3
+schema_class: public        # private | protected | public
+realm: 0x1A
+epoch: 3
+abi_version: 2
+
+rows: 8
+schema_rows: 5
+
+rowspec:
+  R0: { fixed: true, allowed: [0x1A] }
+  R1: { fixed: true, allowed: [0x02] }
+  R2: { fixed: true, allowed: [0x04] }
+  R3: { fixed: true, allowed: [0x03] }
+  R4: { fixed: true, allowed: [0x02] }
+
+  R5: { fixed: false }
+  R6: { fixed: false }
+  R7: { fixed: false }

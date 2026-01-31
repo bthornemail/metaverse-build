@@ -1,0 +1,9 @@
+# Wi-Fi credentials
+CONFIG_ESP_WIFI_SSID="metaverse-portal"
+CONFIG_ESP_WIFI_PASSWORD="passwd256"
+
+# MQTT broker (update to your host IP)
+CONFIG_BROKER_URL="mqtt://192.168.172.43:1883"
+
+# Logging
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y

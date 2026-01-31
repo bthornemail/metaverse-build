@@ -1,0 +1,20 @@
+# Phase 18 — Fan-out Topology Transcript
+Date: 2026-01-31T09:06:56-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+
+## PASS (all branches)
+Command: ID_PREFIX=valid TRACE_INPUT="hello" ./metaverse-build/pipelines/identity-trace-authority-fanout.sh
+OK
+Exit code: 0
+
+### Branch outputs
+Chain A (sync→rpc→replay):
+hello
+PubSub subscriber:
+hello
+UI stream (file):
+hello
+## FAIL (HALT prevents all branches)
+Command: ID_PREFIX="" TRACE_INPUT="hello" ./metaverse-build/pipelines/identity-trace-authority-fanout.sh
+HALT: InvalidSchemaPrefix
+Exit code: 1

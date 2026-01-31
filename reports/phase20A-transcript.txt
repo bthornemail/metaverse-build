@@ -1,0 +1,20 @@
+# Phase 20A — ESP32 MQTT Projection Transcript
+Date: 2026-01-31T09:41:35-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+Broker: localhost:1883
+Topic: metaverse/trace
+
+## Start broker
+mosquitto started on localhost:1883 (pid 125698)
+## Start subscriber (host)
+## PASS (valid publishes)
+## FAIL (invalid halts)
+HALT: no publish
+Exit code: 1
+
+### Host subscriber output
+Lines after PASS: 4
+Lines after FAIL: 4
+Delta (should be 0 on FAIL): 0
+Last message:
+metaverse/trace hello

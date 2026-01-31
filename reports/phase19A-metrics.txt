@@ -1,0 +1,10 @@
+# Phase 19A — Metrics Mode
+Date: 2026-01-31T09:30:23-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+Runs: 10
+QOS_SLEEP: 0.20
+
+Median delay (seconds) relative to earliest lane:
+Chain A: 0.205325007
+PubSub:  0.000000000
+UI:      0.514449000

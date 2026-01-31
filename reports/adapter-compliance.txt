@@ -1,0 +1,44 @@
+Adapter Compliance Report
+==========================
+
+PASS build/adapters/typescript/opencode-obsidian-agent
+
+PASS capabilities/rendering/3d/adapters/typescript/hyperdev-ide
+
+PASS capabilities/rendering/3d/adapters/typescript/hyperdev-vr
+
+PASS capabilities/ui/adapters/typescript/hyperdev-ide
+
+PASS formats/canvasl/adapters/scheme/automaton
+
+PASS formats/canvasl/adapters/typescript/automata-metaverse
+
+PASS formats/canvasl/adapters/typescript/mind-git
+
+PASS formats/jsonl/adapters/typescript/automata-metaverse
+
+PASS runtime/replay/adapters/scheme/bicf-production
+
+PASS runtime/rpc/adapters/typescript/automata-metaverse
+
+PASS runtime/rpc/adapters/typescript/automaton
+
+PASS runtime/rpc/adapters/typescript/hyperdev-ide
+
+PASS runtime/sync/adapters/typescript/automata-metaverse
+
+PASS runtime/sync/adapters/typescript/automaton
+
+PASS runtime/sync/adapters/typescript/hyperdev-ide
+
+PASS tooling/editor/adapters/typescript/hyperdev-ide
+
+PASS tooling/editor/adapters/typescript/hyperdev-vr
+
+PASS tooling/editor/adapters/typescript/mind-git
+
+Summary
+-------
+Total: 18
+Pass:  18
+Fail:  0

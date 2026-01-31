@@ -1,0 +1,31 @@
+# Phase 19A — Rate Limits & Priority Lanes Transcript
+Date: 2026-01-31T09:15:13-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+
+## PASS (default QoS)
+### PASS (default QoS)
+Chain A (timestamped):
+1769879713.802270152 OK
+
+PubSub (timestamped):
+1769879713.744578275 hello
+
+UI stream (timestamped):
+1769879713.812710399 hello
+
+## PASS (slow chain)
+### PASS (slow chain, QOS_SLEEP=0.20)
+Chain A (timestamped):
+1769879714.424103873 OK
+
+PubSub (timestamped):
+1769879714.219359641 hello
+
+UI stream (timestamped):
+1769879714.430965337 hello
+
+## FAIL (HALT)
+### FAIL
+HALT: InvalidSchemaPrefix
+Exit code: 1
+
