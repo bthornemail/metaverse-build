@@ -1,7 +1,7 @@
 // Capability: TCP bus subscriber (projection endpoint)
 // Authority: AuthorityGate (upstream)
 // Justification: metaverse-build/profiles/kernel-v1/PROFILE.md
-// Inputs: TCP bus newline-delimited messages
+// Inputs: plan URL -> TCP bus newline-delimited messages
 // Outputs: Serial log of payload
 // Trace: no
 // Halt-On-Violation: yes (upstream only)
@@ -22,6 +22,7 @@
 #include "esp_system.h"
 #include "esp_wifi.h"
 #include "nvs_flash.h"
+#include "esp_http_client.h"
 
 #define WIFI_CONNECTED_BIT BIT0
 
@@ -74,10 +75,79 @@ static void wifi_init_sta(void) {
     ESP_LOGI(TAG, "Wi-Fi init done, connecting...");
 }
 
+static int parse_plan(const char *buf, char *host, size_t host_len, char *port, size_t port_len) {
+    const char *addr_key = "\"addr\":\"";
+    const char *port_key = "\"port\":";
+    char *a = strstr(buf, addr_key);
+    char *p = strstr(buf, port_key);
+    if (!a || !p) return -1;
+    a += strlen(addr_key);
+    char *a_end = strchr(a, '"');
+    if (!a_end) return -1;
+    size_t a_len = a_end - a;
+    if (a_len >= host_len) return -1;
+    memcpy(host, a, a_len);
+    host[a_len] = '\0';
+
+    p += strlen(port_key);
+    size_t i = 0;
+    while (p[i] && p[i] >= '0' && p[i] <= '9' && i < port_len - 1) {
+        port[i] = p[i];
+        i++;
+    }
+    port[i] = '\0';
+    return (i > 0) ? 0 : -1;
+}
+
+static int fetch_plan(char *host, size_t host_len, char *port, size_t port_len) {
+    esp_http_client_config_t config = {
+        .url = CONFIG_PLAN_URL,
+        .timeout_ms = 3000,
+    };
+    esp_http_client_handle_t client = esp_http_client_init(&config);
+    if (client == NULL) {
+        return -1;
+    }
+
+    if (esp_http_client_open(client, 0) != ESP_OK) {
+        esp_http_client_cleanup(client);
+        return -1;
+    }
+
+    int content_length = esp_http_client_fetch_headers(client);
+    if (content_length <= 0 || content_length > 1024) {
+        esp_http_client_close(client);
+        esp_http_client_cleanup(client);
+        return -1;
+    }
+
+    char buf[1024];
+    int read_len = esp_http_client_read(client, buf, content_length);
+    if (read_len <= 0) {
+        esp_http_client_close(client);
+        esp_http_client_cleanup(client);
+        return -1;
+    }
+    buf[read_len] = '\0';
+
+    esp_http_client_close(client);
+    esp_http_client_cleanup(client);
+
+    return parse_plan(buf, host, host_len, port, port_len);
+}
+
 static void tcp_bus_task(void *pvParameters) {
+    char host[64];
+    char port[8];
     char rx_buffer[256];
     char line_buffer[256];
     int line_len = 0;
+
+    if (fetch_plan(host, sizeof(host), port, sizeof(port)) != 0) {
+        ESP_LOGE(TAG, "Plan fetch failed; not attaching to bus");
+        vTaskDelete(NULL);
+        return;
+    }
 
     while (1) {
         struct addrinfo hints = {
@@ -85,7 +155,7 @@ static void tcp_bus_task(void *pvParameters) {
             .ai_socktype = SOCK_STREAM
         };
         struct addrinfo *res = NULL;
-        int err = getaddrinfo(CONFIG_BUS_HOST, CONFIG_BUS_PORT, &hints, &res);
+        int err = getaddrinfo(host, port, &hints, &res);
         if (err != 0 || res == NULL) {
             ESP_LOGE(TAG, "getaddrinfo failed: %d", err);
             vTaskDelay(pdMS_TO_TICKS(2000));
@@ -100,7 +170,7 @@ static void tcp_bus_task(void *pvParameters) {
             continue;
         }
 
-        ESP_LOGI(TAG, "Connecting to TCP bus %s:%s", CONFIG_BUS_HOST, CONFIG_BUS_PORT);
+        ESP_LOGI(TAG, "Connecting to TCP bus %s:%s", host, port);
         if (connect(sock, res->ai_addr, res->ai_addrlen) != 0) {
             ESP_LOGE(TAG, "Socket connect failed");
             close(sock);
@@ -148,5 +218,5 @@ void app_main(void) {
     xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT, pdFALSE, pdTRUE, portMAX_DELAY);
     ESP_LOGI(TAG, "Wi-Fi connected");
 
-    xTaskCreate(tcp_bus_task, "tcp_bus_task", 4096, NULL, 5, NULL);
+    xTaskCreate(tcp_bus_task, "tcp_bus_task", 6144, NULL, 5, NULL);
 }

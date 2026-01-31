@@ -1,0 +1,20 @@
+# Phase 22C — ESP32 Plan-Driven TCP Bus Transcript
+Date: 2026-01-31T11:13:23-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+Plan: /home/main/devops/metaverse-build/runtime/lattice/state/plan/device-plan.json
+Bus env: pipelines/posix-bus/bus.env
+
+## Start TCP bus listener
+tcp listener started on 127.0.0.1:7000 (pid 143964)
+## Start subscriber (host capture)
+## PASS (valid publishes)
+## FAIL (invalid halts)
+HALT: no publish
+Exit code: 1
+
+### Host subscriber output
+Bytes after PASS: 54
+Bytes after FAIL: 54
+Delta (should be 0 on FAIL): 0
+Last message:
+hello
