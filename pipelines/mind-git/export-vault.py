@@ -50,12 +50,13 @@ def structural_diff(prev_obj, curr_obj):
             removed.append((k, prev_flat[k]))
     return added, removed, changed
 
-def write_basis_canvas(out_path):
+def write_basis_canvas(out_path, diff_link):
     basis_path = os.path.join(ROOT, "runtime", "lattice", "graph", "basis.json")
     basis = read_json(basis_path) if os.path.exists(basis_path) else {}
     selected = basis.get("selected", [])
     peer = selected[0].get("peer", "unknown") if selected else "unknown"
     score = selected[0].get("score", 0) if selected else 0
+    link_line = f"diff: [[{diff_link}]]" if diff_link else "diff: (none)"
     canvas = {
         "nodes": [
             {
@@ -63,9 +64,9 @@ def write_basis_canvas(out_path):
                 "type": "text",
                 "x": 40,
                 "y": 40,
-                "width": 260,
-                "height": 100,
-                "text": f"Basis Selection\\nPeer: {peer}\\nScore: {score}",
+                "width": 300,
+                "height": 120,
+                "text": f"Basis Selection\\nPeer: {peer}\\nScore: {score}\\n{link_line}\\nindex: [[INDEX]]",
             }
         ],
         "edges": [],
@@ -121,6 +122,7 @@ def export():
 
     # diffs
     entries = read_index()
+    latest_diff = ""
     for i in range(1, len(entries)):
         prev = entries[i - 1]["hash"]
         curr = entries[i]["hash"]
@@ -134,6 +136,7 @@ def export():
         out_name = f"{prev[:8]}→{curr[:8]}.md"
         out_path = os.path.join(diffs_dir, out_name)
         with open(out_path, "w") as fh:
+            fh.write("↩ [[INDEX]]\n\n")
             fh.write(f"# Diff {prev[:8]} → {curr[:8]}\n\n")
             for k, v in added:
                 fh.write(f"+ {k}: {v}\n")
@@ -141,17 +144,37 @@ def export():
                 fh.write(f"- {k}: {v}\n")
             for k, a, b in changed:
                 fh.write(f"~ {k}: {a} → {b}\n")
+        latest_diff = out_name
 
     # graphs
     peergraph_canvas = os.path.join(CANVAS, "PeerGraph.canvas")
     if os.path.exists(peergraph_canvas):
-        shutil.copyfile(peergraph_canvas, os.path.join(graphs_dir, "peergraph.canvas"))
-    write_basis_canvas(os.path.join(graphs_dir, "basis.canvas"))
+        # Append links to INDEX and latest diff
+        with open(peergraph_canvas, "r") as fh:
+            canvas = json.load(fh)
+        nodes = canvas.get("nodes", [])
+        nodes.append({
+            "id": "peergraph-links",
+            "type": "text",
+            "x": 40,
+            "y": 320,
+            "width": 300,
+            "height": 100,
+            "text": f"index: [[INDEX]]\\ndiff: [[plans/diffs/{latest_diff}]]" if latest_diff else "index: [[INDEX]]",
+        })
+        canvas["nodes"] = nodes
+        with open(os.path.join(graphs_dir, "peergraph.canvas"), "w") as fh:
+            json.dump(canvas, fh, separators=(",", ":"))
+    write_basis_canvas(os.path.join(graphs_dir, "basis.canvas"), f"plans/diffs/{latest_diff}" if latest_diff else "")
 
     # reports
     basis_flips = os.path.join(REPORTS, "basis-flip.md")
     if os.path.exists(basis_flips):
-        shutil.copyfile(basis_flips, os.path.join(reports_dir, "basis-flips.md"))
+        with open(basis_flips, "r") as fh:
+            content = fh.read()
+        with open(os.path.join(reports_dir, "basis-flips.md"), "w") as fh:
+            fh.write("↩ [[INDEX]]\n\n")
+            fh.write(content)
 
     # phase transcripts index
     transcripts = []
@@ -161,6 +184,7 @@ def export():
     transcripts.sort()
     out = os.path.join(reports_dir, "phase-transcripts.md")
     with open(out, "w") as fh:
+        fh.write("↩ [[INDEX]]\n\n")
         fh.write("# Phase Transcripts\n\n")
         fh.write(f"Generated: {datetime.now(timezone.utc).isoformat()}\n\n")
         for name in transcripts:
@@ -168,8 +192,7 @@ def export():
 
     # INDEX.md
     index_path = os.path.join(VAULT, "INDEX.md")
-    latest_diff = ""
-    if os.path.isdir(diffs_dir):
+    if not latest_diff and os.path.isdir(diffs_dir):
         diffs = [f for f in os.listdir(diffs_dir) if f.endswith(".md")]
         diffs.sort()
         if diffs:
