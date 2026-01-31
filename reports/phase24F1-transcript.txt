@@ -1,0 +1,47 @@
+# Phase 24F.1 — Controlled Basis Flip
+Date: 2026-01-31T12:47:30-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+Beacon port: 9340
+
+## Start beacon listener + observer
+## Phase A: prefer host-a
+Beacons log (A):
+{"type":"beacon","node":"host-a","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769892451}
+{"type":"beacon","node":"host-b","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":50,"epoch":1769892451}
+Observed (A):
+{"type":"beacon","node":"host-a","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769892451}
+{"type":"beacon","node":"host-b","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":50,"epoch":1769892451}
+## Phase B: flip to host-b
+Beacons log (B):
+{"type":"beacon","node":"host-a","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769892451}
+{"type":"beacon","node":"host-b","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":50,"epoch":1769892451}
+{"type":"beacon","node":"host-a","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":50,"epoch":1769892453}
+{"type":"beacon","node":"host-b","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769892453}
+Observed (B):
+{"type":"beacon","node":"host-a","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769892451}
+{"type":"beacon","node":"host-b","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":50,"epoch":1769892451}
+{"type":"beacon","node":"host-a","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7000,"ui":8080},"caps":["bus","ui"],"rtt_ms":50,"epoch":1769892453}
+{"type":"beacon","node":"host-b","profile":"kernel-v1","addr":"127.0.0.1","ports":{"bus":7001,"ui":8080},"caps":["bus","ui"],"rtt_ms":1,"epoch":1769892453}
+## Plan History (latest)
+# Plan History
+
+Generated: 2026-01-31T20:47:36.307036+00:00
+
+## f4c5dec1
+- Timestamp: 1769892452
+- Selected peer: host-a
+- Bus: tcp://127.0.0.1:7000
+- Evidence: beacon(unknown)
+
+## d6806212
+- Timestamp: 1769892455
+- Selected peer: host-b
+- Bus: tcp://127.0.0.1:7001
+- Evidence: beacon(unknown)
+- Delta from previous: host-a → host-b
+
+### Diff from f4c5dec1
+~ attachments[0].name: bus-host-a → bus-host-b
+~ attachments[0].peer: host-a → host-b
+~ attachments[0].trace_tcp: tcp://127.0.0.1:7000 → tcp://127.0.0.1:7001
+

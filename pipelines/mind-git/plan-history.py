@@ -8,6 +8,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT_ROOT = os.path.join(ROOT, "projections", "mind-git")
 REPORTS = os.path.join(OUT_ROOT, "reports")
 PLAN_STORE = os.path.join(OUT_ROOT, "plan-history")
+INDEX_FILE = os.path.join(PLAN_STORE, "index.jsonl")
 os.makedirs(REPORTS, exist_ok=True)
 os.makedirs(PLAN_STORE, exist_ok=True)
 
@@ -15,9 +16,9 @@ routing_log = os.path.join(ROOT, "runtime", "lattice", "trace", "routing.log")
 discovery_log = os.path.join(ROOT, "runtime", "lattice", "trace", "discovery.log")
 current_plan = os.path.join(ROOT, "runtime", "lattice", "plan", "connection-plan.json")
 
-def sha256_file(path):
-    with open(path, "rb") as fh:
-        return hashlib.sha256(fh.read()).hexdigest()
+def sha256_obj(obj):
+    data = json.dumps(obj, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(data).hexdigest()
 
 def load_json(path):
     if not os.path.exists(path):
@@ -100,35 +101,40 @@ def beacon_evidence(events, peer):
 routing = parse_jsonl(routing_log)
 discovery = parse_jsonl(discovery_log)
 
-entries = []
-for ev in routing:
-    if ev.get("type") != "rebind":
-        continue
-    plan_path = ev.get("plan", current_plan)
-    if not os.path.exists(plan_path):
-        continue
-    plan_hash = sha256_file(plan_path)
-    snapshot = os.path.join(PLAN_STORE, f"{plan_hash}.json")
-    if not os.path.exists(snapshot):
-        with open(plan_path, "rb") as fh_in, open(snapshot, "wb") as fh_out:
-            fh_out.write(fh_in.read())
-    meta = extract_plan_meta(plan_path)
-    entries.append({
-        "t": ev.get("t", 0),
-        "hash": plan_hash,
-        **meta,
-    })
+def latest_rebind_time(events):
+    times = [ev.get("t", 0) for ev in events if ev.get("type") == "rebind"]
+    return max(times) if times else 0
 
-if not entries and os.path.exists(current_plan):
-    plan_hash = sha256_file(current_plan)
+entries = []
+
+# Ensure current plan is snapshotted and indexed
+if os.path.exists(current_plan):
+    plan_obj = load_json(current_plan)
+    plan_hash = sha256_obj(plan_obj)
     snapshot = os.path.join(PLAN_STORE, f"{plan_hash}.json")
     if not os.path.exists(snapshot):
-        with open(current_plan, "rb") as fh_in, open(snapshot, "wb") as fh_out:
-            fh_out.write(fh_in.read())
-    meta = extract_plan_meta(current_plan)
+        with open(snapshot, "w") as fh_out:
+            json.dump(plan_obj, fh_out, separators=(",", ":"), sort_keys=True)
+    seen = set()
+    if os.path.exists(INDEX_FILE):
+        for rec in parse_jsonl(INDEX_FILE):
+            seen.add(rec.get("hash"))
+    if plan_hash not in seen:
+        t = latest_rebind_time(routing)
+        with open(INDEX_FILE, "a") as fh:
+            fh.write(json.dumps({"t": t, "hash": plan_hash}, separators=(",", ":")) + "\n")
+
+# Build entries from index
+index = parse_jsonl(INDEX_FILE)
+for rec in index:
+    h = rec.get("hash")
+    snapshot = os.path.join(PLAN_STORE, f"{h}.json")
+    if not os.path.exists(snapshot):
+        continue
+    meta = extract_plan_meta(snapshot)
     entries.append({
-        "t": 0,
-        "hash": plan_hash,
+        "t": rec.get("t", 0),
+        "hash": h,
         **meta,
     })
 
