@@ -49,7 +49,39 @@ def extract_plan_meta(plan_path):
         "peer": first.get("peer", "unknown"),
         "trace_tcp": first.get("trace_tcp", ""),
         "trace_fifo": first.get("trace_fifo", ""),
+        "plan": plan,
     }
+
+def flatten(obj, prefix=""):
+    items = {}
+    if isinstance(obj, dict):
+        for k in sorted(obj.keys()):
+            v = obj[k]
+            key = f"{prefix}.{k}" if prefix else k
+            items.update(flatten(v, key))
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            key = f"{prefix}[{i}]"
+            items.update(flatten(v, key))
+    else:
+        items[prefix] = obj
+    return items
+
+def structural_diff(prev_obj, curr_obj):
+    prev_flat = flatten(prev_obj)
+    curr_flat = flatten(curr_obj)
+    added = []
+    removed = []
+    changed = []
+    for k in sorted(curr_flat.keys()):
+        if k not in prev_flat:
+            added.append((k, curr_flat[k]))
+        elif prev_flat[k] != curr_flat[k]:
+            changed.append((k, prev_flat[k], curr_flat[k]))
+    for k in sorted(prev_flat.keys()):
+        if k not in curr_flat:
+            removed.append((k, prev_flat[k]))
+    return added, removed, changed
 
 def beacon_evidence(events, peer):
     for ev in reversed(events):
@@ -102,6 +134,16 @@ if not entries and os.path.exists(current_plan):
 
 entries.sort(key=lambda e: (e["t"], e["hash"]))
 
+# De-duplicate consecutive identical hashes
+deduped = []
+last_hash = None
+for e in entries:
+    if e["hash"] == last_hash:
+        continue
+    deduped.append(e)
+    last_hash = e["hash"]
+entries = deduped
+
 out_path = os.path.join(REPORTS, "plan-history.md")
 with open(out_path, "w") as fh:
     fh.write("# Plan History\n\n")
@@ -118,6 +160,14 @@ with open(out_path, "w") as fh:
         fh.write(f"- Evidence: {beacon_evidence(discovery, e['peer'])}\n")
         if prev is not None:
             fh.write(f"- Delta from previous: {prev['peer']} → {e['peer']}\n")
+            added, removed, changed = structural_diff(prev["plan"], e["plan"])
+            fh.write(f"\n### Diff from {prev['hash'][:8]}\n")
+            for k, v in added:
+                fh.write(f"+ {k}: {v}\n")
+            for k, v in removed:
+                fh.write(f"- {k}: {v}\n")
+            for k, a, b in changed:
+                fh.write(f"~ {k}: {a} → {b}\n")
         fh.write("\n")
         prev = e
 
