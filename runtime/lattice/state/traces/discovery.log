@@ -1,0 +1,4 @@
+{"t":1769884591,"type":"basis","graph":"/home/main/devops/metaverse-build/runtime/lattice/state/graph/peergraph.json","basis":"/home/main/devops/metaverse-build/runtime/lattice/state/graph/basis.json","plan":"/home/main/devops/metaverse-build/runtime/lattice/state/plan/connection-plan.json"}
+{"t":1769884653,"type":"discovery","raw":{"type":"beacon","node":"esp32-001","profile":"kernel-v1","addr":"192.168.1.44","ports":{"mqtt":1883,"gate":7000,"ui":8080},"caps":["mqtt","ui"],"epoch":1769884653}}
+{"t":1769884685,"type":"discovery","raw":{"type":"beacon","node":"esp32-001","profile":"kernel-v1","addr":"192.168.1.44","ports":{"mqtt":1883,"gate":7000,"ui":8080},"caps":["mqtt","ui"],"epoch":1769884685}}
+{"t":1769884717,"type":"discovery","raw":{"type":"beacon","node":"esp32-001","profile":"kernel-v1","addr":"192.168.1.44","ports":{"mqtt":1883,"gate":7000,"ui":8080},"caps":["mqtt","ui"],"epoch":1769884717}}

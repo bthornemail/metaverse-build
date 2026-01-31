@@ -1,0 +1,12 @@
+{
+  "version": "peergraph-1",
+  "nodes": [
+    {"id":"peer-id","addr":"ip","caps":["mqtt"],"health":{"ok":true,"rtt_ms":12}}
+  ],
+  "edges": [
+    {"a":"peer-a","b":"peer-b","kind":"udp_seen","weight":0.8}
+  ],
+  "simplices": [
+    {"k":2,"nodes":["a","b","c"],"score":0.5}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "version": "peergraph-1",
+  "nodes": [
+    {"id":"host-001","addr":"127.0.0.1","caps":["mqtt"],"health":{"ok":true}}
+  ],
+  "edges": [
+
+  ],
+  "simplices": []
+}

@@ -1,0 +1,6 @@
+{
+  "version": "plan-1",
+  "attachments": [
+    {"name":"mqtt-host-001","kind":"mqtt","peer":"host-001","topic":"metaverse/trace","lane":"smooth"}
+  ]
+}

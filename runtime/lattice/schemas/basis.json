@@ -1,0 +1,9 @@
+{
+  "version": "basis-1",
+  "selected": [
+    {"peer":"host-001","transport":"mqtt","lane":"smooth","score":0.91}
+  ],
+  "rejected": [
+    {"peer":"peer-xyz","transport":"mqtt","reason":"unhealthy"}
+  ]
+}

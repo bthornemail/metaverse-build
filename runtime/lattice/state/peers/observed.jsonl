@@ -1,0 +1,1 @@
+{"type":"beacon","node":"esp32-001","profile":"kernel-v1","addr":"192.168.1.44","ports":{"mqtt":1883,"gate":7000,"ui":8080},"caps":["mqtt","ui"],"epoch":1769884717}

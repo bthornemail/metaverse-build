@@ -1,0 +1,1 @@
+{"type":"seed","peer":"host-001","addr":"127.0.0.1","ports":{"mqtt":1883,"gate":7000,"ui":8080},"caps":["mqtt","ui","gate"],"profile":"kernel-v1"}
