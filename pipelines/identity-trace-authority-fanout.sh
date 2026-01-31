@@ -13,6 +13,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TRACE_RUN="$ROOT/runtime/trace/sources/run.sh"
 GATE="$ROOT/invariants/authority/gate/AuthorityGate.hs"
 QOS="$ROOT/pipelines/qos/qos.sh"
+BUS_ENV="$ROOT/pipelines/posix-bus/bus.env"
 SYNC="$ROOT/pipelines/adapter-sync/run.sh"
 RPC="$ROOT/pipelines/adapter-rpc/run.sh"
 REPLAY="$ROOT/pipelines/adapter-replay/run.sh"
@@ -24,6 +25,9 @@ if [ -z "${ID_PREFIX+x}" ]; then
   echo "ID_PREFIX must be set" >&2
   exit 2
 fi
+
+# Refresh plan-driven bus env (advisory only)
+BUS_ENV="$BUS_ENV" bash "$ROOT/pipelines/posix-bus/bus-env.sh" >/dev/null
 
 mkdir -p "$OUT_DIR" "$(dirname "$STREAM")"
 rm -f "$OUT_DIR/fanout.chainA.out"

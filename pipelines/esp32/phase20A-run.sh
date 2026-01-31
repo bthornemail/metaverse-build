@@ -3,20 +3,24 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 REPORT="$ROOT/reports/phase20A-transcript.txt"
-BUS_FIFO="${BUS_FIFO:-$ROOT/pipelines/posix-bus/trace.fifo}"
+BUS_ENV="${BUS_ENV:-$ROOT/pipelines/posix-bus/bus.env}"
 TTY="${TTY:-}"
+
+# Ensure bus.env is current
+BUS_ENV="$BUS_ENV" bash "$ROOT/pipelines/posix-bus/bus-env.sh" >/dev/null
 
 {
   echo "# Phase 20A — ESP32 POSIX Projection Transcript"
   echo "Date: $(date -Iseconds)"
   echo "Host: $(hostname)"
-  echo "Bus FIFO: $BUS_FIFO"
+  echo "Bus env: $BUS_ENV"
   echo
 
   echo "## Start subscriber (host)"
   : > /tmp/phase20A-host-sub.out
-  BUS_FIFO="$BUS_FIFO" bash "$ROOT/pipelines/posix-bus/subscribe.sh" > /tmp/phase20A-host-sub.out 2>&1 &
+  BUS_ENV="$BUS_ENV" bash "$ROOT/pipelines/posix-bus/subscribe.sh" > /tmp/phase20A-host-sub.out 2>&1 &
   SUB_PID=$!
+  sleep 0.2
 
   if [ -n "$TTY" ]; then
     echo "## Start serial monitor ($TTY)"
@@ -25,24 +29,24 @@ TTY="${TTY:-}"
   fi
 
   echo "## PASS (valid publishes)"
-  BUS_FIFO="$BUS_FIFO" ID_PREFIX=valid TRACE_INPUT="hello" \
+  BUS_ENV="$BUS_ENV" ID_PREFIX=valid TRACE_INPUT="hello" \
     bash "$ROOT/pipelines/posix-bus/publish.sh" 2>&1
   sleep 0.2
-  PASS_COUNT=$(wc -l < /tmp/phase20A-host-sub.out | tr -d ' ')
+  PASS_COUNT=$(wc -c < /tmp/phase20A-host-sub.out | tr -d ' ')
 
   echo "## FAIL (invalid halts)"
   set +e
-  BUS_FIFO="$BUS_FIFO" ID_PREFIX="" TRACE_INPUT="hello" \
+  BUS_ENV="$BUS_ENV" ID_PREFIX="" TRACE_INPUT="hello" \
     bash "$ROOT/pipelines/posix-bus/publish.sh" 2>&1
   echo "Exit code: $?"
   set -e
   sleep 0.2
-  FAIL_COUNT=$(wc -l < /tmp/phase20A-host-sub.out | tr -d ' ')
+  FAIL_COUNT=$(wc -c < /tmp/phase20A-host-sub.out | tr -d ' ')
 
   echo
   echo "### Host subscriber output"
-  echo "Lines after PASS: $PASS_COUNT"
-  echo "Lines after FAIL: $FAIL_COUNT"
+  echo "Bytes after PASS: $PASS_COUNT"
+  echo "Bytes after FAIL: $FAIL_COUNT"
   echo "Delta (should be 0 on FAIL): $((FAIL_COUNT - PASS_COUNT))"
   echo "Last message:"
   tail -n 1 /tmp/phase20A-host-sub.out

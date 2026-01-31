@@ -107,7 +107,7 @@ while IFS=$'\t' read -r peer addr mqtt rtt; do
     [ -n "$peer" ] || continue
     [ $first -eq 0 ] && printf ',\n'
     first=0
-    printf '    {"name":"mqtt-%s","kind":"mqtt","peer":"%s","topic":"metaverse/trace","lane":"smooth"}' "$peer" "$peer"
+    printf '    {"name":"bus-%s","kind":"bus","peer":"%s","trace_fifo":"%s","trace_tcp":"tcp://%s:7000"}' "$peer" "$peer" "$ROOT/pipelines/posix-bus/trace.fifo" "$peer"
   done < "$BASIS"
   echo
   echo '  ]'

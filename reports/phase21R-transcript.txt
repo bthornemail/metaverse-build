@@ -1,0 +1,17 @@
+# Phase 20A — ESP32 POSIX Projection Transcript
+Date: 2026-01-31T10:53:04-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+Bus env: pipelines/posix-bus/bus.env
+
+## Start subscriber (host)
+## PASS (valid publishes)
+## FAIL (invalid halts)
+HALT: no publish
+Exit code: 1
+
+### Host subscriber output
+Bytes after PASS: 5
+Bytes after FAIL: 5
+Delta (should be 0 on FAIL): 0
+Last message:
+hello
