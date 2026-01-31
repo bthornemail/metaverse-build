@@ -1,0 +1,19 @@
+# Phase 22A — ESP32 TCP Bus Transcript
+Date: 2026-01-31T11:06:10-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+Bus env: pipelines/posix-bus/bus.env
+
+## Start TCP bus listener
+tcp listener started on 127.0.0.1:7000 (pid 142458)
+## Start subscriber (host capture)
+## PASS (valid publishes)
+## FAIL (invalid halts)
+HALT: no publish
+Exit code: 1
+
+### Host subscriber output
+Bytes after PASS: 48
+Bytes after FAIL: 48
+Delta (should be 0 on FAIL): 0
+Last message:
+hello

@@ -1,13 +1,17 @@
-// Capability: MQTT subscriber (projection endpoint)
+// Capability: TCP bus subscriber (projection endpoint)
 // Authority: AuthorityGate (upstream)
 // Justification: metaverse-build/profiles/kernel-v1/PROFILE.md
-// Inputs: MQTT topic metaverse/trace
+// Inputs: TCP bus newline-delimited messages
 // Outputs: Serial log of payload
 // Trace: no
 // Halt-On-Violation: yes (upstream only)
 
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/param.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -18,8 +22,6 @@
 #include "esp_system.h"
 #include "esp_wifi.h"
 #include "nvs_flash.h"
-
-#include "mqtt_client.h"
 
 #define WIFI_CONNECTED_BIT BIT0
 
@@ -72,33 +74,70 @@ static void wifi_init_sta(void) {
     ESP_LOGI(TAG, "Wi-Fi init done, connecting...");
 }
 
-static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event) {
-    switch (event->event_id) {
-        case MQTT_EVENT_CONNECTED:
-            ESP_LOGI(TAG, "MQTT connected");
-            esp_mqtt_client_subscribe(event->client, "metaverse/trace", 0);
-            break;
-        case MQTT_EVENT_DATA:
-            // Print topic and payload to serial
-            printf("%.*s %.*s\n",
-                   event->topic_len, event->topic,
-                   event->data_len, event->data);
-            fflush(stdout);
-            break;
-        default:
-            break;
+static void tcp_bus_task(void *pvParameters) {
+    char rx_buffer[256];
+    char line_buffer[256];
+    int line_len = 0;
+
+    while (1) {
+        struct addrinfo hints = {
+            .ai_family = AF_INET,
+            .ai_socktype = SOCK_STREAM
+        };
+        struct addrinfo *res = NULL;
+        int err = getaddrinfo(CONFIG_BUS_HOST, CONFIG_BUS_PORT, &hints, &res);
+        if (err != 0 || res == NULL) {
+            ESP_LOGE(TAG, "getaddrinfo failed: %d", err);
+            vTaskDelay(pdMS_TO_TICKS(2000));
+            continue;
+        }
+
+        int sock = socket(res->ai_family, res->ai_socktype, 0);
+        if (sock < 0) {
+            ESP_LOGE(TAG, "Unable to create socket");
+            freeaddrinfo(res);
+            vTaskDelay(pdMS_TO_TICKS(2000));
+            continue;
+        }
+
+        ESP_LOGI(TAG, "Connecting to TCP bus %s:%s", CONFIG_BUS_HOST, CONFIG_BUS_PORT);
+        if (connect(sock, res->ai_addr, res->ai_addrlen) != 0) {
+            ESP_LOGE(TAG, "Socket connect failed");
+            close(sock);
+            freeaddrinfo(res);
+            vTaskDelay(pdMS_TO_TICKS(2000));
+            continue;
+        }
+        freeaddrinfo(res);
+        ESP_LOGI(TAG, "Connected to TCP bus");
+
+        while (1) {
+            int len = recv(sock, rx_buffer, sizeof(rx_buffer) - 1, 0);
+            if (len < 0) {
+                ESP_LOGE(TAG, "recv failed");
+                break;
+            } else if (len == 0) {
+                ESP_LOGW(TAG, "connection closed");
+                break;
+            }
+            for (int i = 0; i < len; i++) {
+                char c = rx_buffer[i];
+                if (c == '\n' || line_len >= (int)sizeof(line_buffer) - 1) {
+                    line_buffer[line_len] = '\0';
+                    if (line_len > 0) {
+                        printf("BUS %s\n", line_buffer);
+                        fflush(stdout);
+                    }
+                    line_len = 0;
+                } else {
+                    line_buffer[line_len++] = c;
+                }
+            }
+        }
+
+        close(sock);
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
-    return ESP_OK;
-}
-
-static void mqtt_start(void) {
-    esp_mqtt_client_config_t mqtt_cfg = {
-        .uri = CONFIG_BROKER_URL,
-    };
-
-    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
-    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler_cb, NULL);
-    esp_mqtt_client_start(client);
 }
 
 void app_main(void) {
@@ -106,9 +145,8 @@ void app_main(void) {
 
     wifi_init_sta();
 
-    // Wait for Wi-Fi
     xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT, pdFALSE, pdTRUE, portMAX_DELAY);
     ESP_LOGI(TAG, "Wi-Fi connected");
 
-    mqtt_start();
+    xTaskCreate(tcp_bus_task, "tcp_bus_task", 4096, NULL, 5, NULL);
 }

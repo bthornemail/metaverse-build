@@ -1,0 +1,11 @@
+menu "Metaverse Bus"
+
+config BUS_HOST
+    string "Bus host"
+    default "192.168.172.43"
+
+config BUS_PORT
+    string "Bus port"
+    default "7000"
+
+endmenu

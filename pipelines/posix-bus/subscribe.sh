@@ -13,6 +13,11 @@ MODE="${BUS_MODE:-fifo}"
 BUS_FIFO="${BUS_FIFO:-$ROOT/pipelines/posix-bus/trace.fifo}"
 BUS_TCP="${BUS_TCP:-tcp://127.0.0.1:7000}"
 
+NC_BIN="$(command -v lattice-netcat || true)"
+if [ -z "$NC_BIN" ]; then
+  NC_BIN="$ROOT/../lattice-netcat/lattice-netcat"
+fi
+
 case "$MODE" in
   fifo)
     [ -p "$BUS_FIFO" ] || mkfifo "$BUS_FIFO"
@@ -22,7 +27,11 @@ case "$MODE" in
     host=$(printf "%s" "$BUS_TCP" | sed -n 's|tcp://\([^:/]*\).*|\1|p')
     port=$(printf "%s" "$BUS_TCP" | sed -n 's|tcp://[^:/]*:\([0-9][0-9]*\).*|\1|p')
     : "${host:?missing tcp host}" "${port:?missing tcp port}"
-    lattice-netcat -l -p "$port"
+    if [ ! -x "$NC_BIN" ]; then
+      echo "lattice-netcat not found" >&2
+      exit 1
+    fi
+    "$NC_BIN" -l -p "$port"
     ;;
   *)
     echo "Unknown BUS_MODE: $MODE" >&2

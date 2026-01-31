@@ -1,6 +1,6 @@
-# ESP-IDF MQTT Subscriber (ESP32)
+# ESP-IDF TCP Bus Subscriber (ESP32)
 
-This ESP32 firmware subscribes to `metaverse/trace` and prints payloads to serial.
+This ESP32 firmware subscribes to the POSIX TCP bus and prints payloads to serial.
 
 ## Build/Flash (ESP-IDF)
 ```
@@ -11,16 +11,15 @@ idf.py -p /dev/ttyUSB0 flash monitor
 ```
 
 ## Configure
-Edit `sdkconfig.defaults` if needed:
+Edit `sdkconfig.defaults` or use `menuconfig`:
 - `CONFIG_ESP_WIFI_SSID`
 - `CONFIG_ESP_WIFI_PASSWORD`
-- `CONFIG_BROKER_URL`
-
-Default broker is set to `mqtt://192.168.1.2:1883` (update to your host IP).
+- `CONFIG_BUS_HOST`
+- `CONFIG_BUS_PORT`
 
 ## Expected output
 ```
-metaverse/trace <payload>
+BUS <payload>
 ```
 
-This device is a projection endpoint only; authority remains upstream in the Haskell gate.
+Authority remains upstream in the Haskell gate. This device is projection-only.

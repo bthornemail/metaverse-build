@@ -1,0 +1,7 @@
+# Generated bus env and FIFOs
+pipelines/posix-bus/bus.env
+pipelines/posix-bus/trace.fifo
+pipelines/posix-bus/tcp/state/
+
+# Lattice runtime state (generated)
+runtime/lattice/state/
