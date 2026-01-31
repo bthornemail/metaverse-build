@@ -21,4 +21,5 @@ bash pipelines/mind-git/run.sh
 - `projections/mind-git/index/latest.json`
 - `projections/mind-git/canvas/PeerGraph.canvas`
 - `projections/mind-git/reports/basis-flip.md`
+- `projections/mind-git/reports/plan-history.md`
 - `reports/phase24-transcript.txt`

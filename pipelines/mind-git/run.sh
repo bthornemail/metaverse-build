@@ -20,6 +20,10 @@ REPORT="$ROOT/reports/phase24-transcript.txt"
 
   echo "## Report"
   python3 "$ROOT/pipelines/mind-git/report.py"
+  echo
+
+  echo "## Plan History"
+  python3 "$ROOT/pipelines/mind-git/plan-history.py"
 } > "$REPORT"
 
 sed -n '1,200p' "$REPORT"
