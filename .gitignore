@@ -10,5 +10,8 @@ runtime/lattice/plan/
 runtime/lattice/peers/observe/
 runtime/lattice/trace/
 
+# mind-git projections (non-authoritative)
+projections/mind-git/
+
 # Lattice runtime state (generated)
 runtime/lattice/state/
