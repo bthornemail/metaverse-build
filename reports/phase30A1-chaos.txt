@@ -1,0 +1,16 @@
+# Phase 30A.1 — Transport Freeze Audit
+Date: 2026-01-31T15:58:43-08:00
+IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
+Base Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.snapshot.json
+Chaos Log: /home/main/devops/metaverse-build/runtime/sync-transport/state/chaos.jsonl
+Merged Log: /home/main/devops/metaverse-build/runtime/sync-world/state/merged.jsonl
+Hash Peer A: 9b831d6eb13d58211a486ff6caec3d6877a6baad4942130910f67a1924b54650
+Hash Peer B: 9b831d6eb13d58211a486ff6caec3d6877a6baad4942130910f67a1924b54650
+Hash Valid Subset: 9b831d6eb13d58211a486ff6caec3d6877a6baad4942130910f67a1924b54650
+HALT A Log: HALT 3 HALT: NotOwner
+HALT 4 HALT: NotOwner
+HALT B Log: HALT 3 HALT: NotOwner
+HALT 4 HALT: NotOwner
+PASS: deterministic under chaos
+PASS: authority preserved
+PASS: final hash identical
