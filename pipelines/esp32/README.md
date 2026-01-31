@@ -1,13 +1,10 @@
-# Phase 20A — ESP32 MQTT Projection
+# Phase 20A — ESP32 POSIX Projection
 
-Goal: prove that only authority-validated messages reach an embedded subscriber.
+Goal: prove that only authority-validated messages reach an embedded subscriber via POSIX transports.
 
 ## Files
-- `broker.sh` — starts local mosquitto broker
-- `publish.sh` — authority-gated publish wrapper
-- `subscribe-host.sh` — host subscriber (simulates ESP32)
+- `phase20A-run.sh` — PASS/FAIL transcript runner (POSIX bus)
 - `serial-monitor.sh` — optional serial monitor for ESP32 output
-- `phase20A-run.sh` — PASS/FAIL transcript runner
 
 ## Run (host-only)
 ```bash
@@ -20,7 +17,7 @@ TTY=/dev/ttyUSB0 ./metaverse-build/pipelines/esp32/phase20A-run.sh
 ```
 
 Expected:
-- PASS publishes a message on `metaverse/trace`
-- FAIL halts with `HALT: no publish` and publishes nothing
+- PASS writes to FIFO
+- FAIL halts with `HALT: no publish` and writes nothing
 
 AuthorityGate remains upstream and unchanged.

@@ -13,7 +13,7 @@ Trace → AuthorityGate →
   Chain C: UI stream
 ```
 
-## MQTT projection slice
+## POSIX bus slice
 ```
-Trace → AuthorityGate → MQTT publish → subscriber (host/ESP32)
+Trace → AuthorityGate → POSIX bus (FIFO/TCP) → subscriber (host/ESP32)
 ```

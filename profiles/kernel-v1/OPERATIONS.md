@@ -1,10 +1,5 @@
 # Operations
 
-## Start broker (host)
-```
-metaverse-build/pipelines/esp32/broker.sh
-```
-
 ## PASS/FAIL fanout
 ```
 ID_PREFIX=valid TRACE_INPUT="hello" ./metaverse-build/pipelines/identity-trace-authority-fanout.sh
@@ -16,7 +11,7 @@ ID_PREFIX="" TRACE_INPUT="hello" ./metaverse-build/pipelines/identity-trace-auth
 METRICS_N=10 METRICS_QOS_SLEEP=0.20 ./metaverse-build/pipelines/fanout/phase19A-run.sh metrics
 ```
 
-## MQTT/ESP32 slice (host)
+## POSIX bus/ESP32 slice (host)
 ```
 ./metaverse-build/pipelines/esp32/phase20A-run.sh
 ```

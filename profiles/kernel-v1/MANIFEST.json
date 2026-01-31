@@ -2,14 +2,14 @@
   "profile": "kernel-v1",
   "version": "0.1.0",
   "requires": {
-    "tools": ["bash", "runghc", "pv", "mosquitto_pub", "mosquitto_sub", "mosquitto", "lattice-netcat"],
+    "tools": ["bash", "runghc", "pv", "lattice-netcat"],
     "optional": ["nc"]
   },
   "pipelines": {
     "linear": "metaverse-build/pipelines/identity-trace-authority-sync-rpc-replay.sh",
     "fanout": "metaverse-build/pipelines/identity-trace-authority-fanout.sh",
     "metrics": "metaverse-build/pipelines/fanout/phase19A-run.sh",
-    "mqtt": "metaverse-build/pipelines/esp32/phase20A-run.sh",
+    "posix": "metaverse-build/pipelines/esp32/phase20A-run.sh",
     "discovery": "metaverse-build/pipelines/discovery/server.sh"
   }
 }

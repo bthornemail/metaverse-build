@@ -31,7 +31,7 @@ if [ ! -x "$NC_BIN" ]; then
 fi
 
 RESP=$(cat <<JSON
-{"profile":"$PROFILE","node":"$NODE","transports":{"gate":"tcp://$HOST_IP:$GATE_PORT","mqtt":"mqtt://$HOST_IP:$BROKER_PORT","ui":"http://$HOST_IP:$UI_PORT"},"qos":["fast","smooth","slow"]}
+{"profile":"$PROFILE","node":"$NODE","transports":{"gate":"tcp://$HOST_IP:$GATE_PORT","bus":{"trace_fifo":"$ROOT/pipelines/posix-bus/trace.fifo","trace_tcp":"tcp://$HOST_IP:$GATE_PORT"},"ui":"http://$HOST_IP:$UI_PORT"},"qos":["fast","smooth","slow"]}
 JSON
 )
 
@@ -50,7 +50,7 @@ while true; do
   fi
   HOST_IP=${HOST_IP:-127.0.0.1}
   RESP=$(cat <<JSON
-{"profile":"$PROFILE","node":"$NODE","transports":{"gate":"tcp://$HOST_IP:$GATE_PORT","mqtt":"mqtt://$HOST_IP:$BROKER_PORT","ui":"http://$HOST_IP:$UI_PORT"},"qos":["fast","smooth","slow"]}
+{"profile":"$PROFILE","node":"$NODE","transports":{"gate":"tcp://$HOST_IP:$GATE_PORT","bus":{"trace_fifo":"$ROOT/pipelines/posix-bus/trace.fifo","trace_tcp":"tcp://$HOST_IP:$GATE_PORT"},"ui":"http://$HOST_IP:$UI_PORT"},"qos":["fast","smooth","slow"]}
 JSON
 )
 
