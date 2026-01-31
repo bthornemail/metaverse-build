@@ -7,6 +7,10 @@ def fail(msg):
     print(msg, file=sys.stderr)
     sys.exit(2)
 
+def halt(reason):
+    print(f"HALT: {reason}", file=sys.stderr)
+    sys.exit(3)
+
 if len(sys.argv) < 3:
     fail("usage: apply-event.py <snapshot.json> <events.jsonl> [out_snapshot]")
 
@@ -48,6 +52,25 @@ def get_or_create_entity(eid, internal=None):
     ent_index[eid] = ent
     return ent
 
+def require_actor(ev):
+    actor = ev.get("actor")
+    if not isinstance(actor, str) or not actor:
+        halt("MissingActor")
+    return actor
+
+def require_entity(eid):
+    ent = ent_index.get(eid)
+    if not ent:
+        halt("UnknownEntity")
+    return ent
+
+def enforce_owner(ent, actor):
+    owner = ent.get("owner")
+    if owner is None:
+        halt("MissingOwner")
+    if actor != owner:
+        halt("NotOwner")
+
 for line in open(events_path, "r"):
     line = line.strip()
     if not line:
@@ -56,24 +79,41 @@ for line in open(events_path, "r"):
     et = ev.get("type")
 
     if et == "ENTITY_CREATE":
+        actor = require_actor(ev)
         eid = ev.get("id")
+        owner = ev.get("owner")
         if not isinstance(eid, str):
             fail("ENTITY_CREATE requires id")
         internal = ev.get("internal")
-        get_or_create_entity(eid, internal)
+        if not isinstance(owner, str) or not owner:
+            halt("MissingOwner")
+        if eid in ent_index:
+            ent = ent_index[eid]
+            existing_owner = ent.get("owner")
+            if existing_owner is None:
+                ent["owner"] = owner
+            elif existing_owner != owner:
+                halt("NotOwner")
+        else:
+            ent = get_or_create_entity(eid, internal)
+            ent["owner"] = owner
 
     elif et == "ENTITY_DESTROY":
+        actor = require_actor(ev)
         eid = ev.get("id")
-        if eid in ent_index:
-            ent = ent_index.pop(eid)
-            entities.remove(ent)
+        ent = require_entity(eid)
+        enforce_owner(ent, actor)
+        ent_index.pop(eid)
+        entities.remove(ent)
 
     elif et == "COMPONENT_ATTACH":
+        actor = require_actor(ev)
         eid = ev.get("entity")
         ctype = ev.get("component")
         if not isinstance(eid, str) or not isinstance(ctype, str):
             fail("COMPONENT_ATTACH requires entity and component")
-        ent = get_or_create_entity(eid)
+        ent = require_entity(eid)
+        enforce_owner(ent, actor)
         comps = ent.get("components", [])
         cid = ev.get("cid")
         if not cid:
@@ -83,14 +123,14 @@ for line in open(events_path, "r"):
         ent["components"] = comps
 
     elif et == "COMPONENT_UPDATE":
+        actor = require_actor(ev)
         eid = ev.get("entity")
         ctype = ev.get("component")
         patch = ev.get("patch", {})
         if not isinstance(eid, str) or not isinstance(ctype, str):
             fail("COMPONENT_UPDATE requires entity and component")
-        ent = ent_index.get(eid)
-        if not ent:
-            fail("COMPONENT_UPDATE on missing entity")
+        ent = require_entity(eid)
+        enforce_owner(ent, actor)
         for comp in ent.get("components", []):
             if comp.get("type") == ctype:
                 data = comp.get("data", {})
@@ -102,13 +142,13 @@ for line in open(events_path, "r"):
                 break
 
     elif et == "COMPONENT_DETACH":
+        actor = require_actor(ev)
         eid = ev.get("entity")
         ctype = ev.get("component")
         if not isinstance(eid, str) or not isinstance(ctype, str):
             fail("COMPONENT_DETACH requires entity and component")
-        ent = ent_index.get(eid)
-        if not ent:
-            continue
+        ent = require_entity(eid)
+        enforce_owner(ent, actor)
         comps = ent.get("components", [])
         for i, comp in enumerate(comps):
             if comp.get("type") == ctype:
@@ -117,11 +157,13 @@ for line in open(events_path, "r"):
         ent["components"] = comps
 
     elif et == "ZONE_MOVE":
+        actor = require_actor(ev)
         eid = ev.get("entity")
         zone = ev.get("zone")
         if not isinstance(eid, str) or not isinstance(zone, str):
             fail("ZONE_MOVE requires entity and zone")
-        ent = get_or_create_entity(eid)
+        ent = require_entity(eid)
+        enforce_owner(ent, actor)
         ent["zone"] = zone
 
     else:

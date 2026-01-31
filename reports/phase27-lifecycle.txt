@@ -1,10 +1,10 @@
 # Phase 27 — Lifecycle Determinism
-Date: 2026-01-31T14:54:45-08:00
+Date: 2026-01-31T15:17:28-08:00
 IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
 Seed Trace: /home/main/devops/metaverse-build/runtime/world/trace/room.seed.jsonl
 Events: /home/main/devops/metaverse-build/runtime/world/trace/room.lifecycle.jsonl
 Snapshot A: /home/main/devops/metaverse-build/runtime/world/snapshots/room.lifecycle.a.json
 Snapshot B: /home/main/devops/metaverse-build/runtime/world/snapshots/room.lifecycle.b.json
-Hash A: cdbb7916f675915c05b3e26a8bf7d520b378a71f85fe0792f842df8a56881d25
-Hash B: cdbb7916f675915c05b3e26a8bf7d520b378a71f85fe0792f842df8a56881d25
+Hash A: 4f24ccf2a840c0e256a98c38de58b9c7e35fd5f3e6f08ab1911490ff70b26d3f
+Hash B: 4f24ccf2a840c0e256a98c38de58b9c7e35fd5f3e6f08ab1911490ff70b26d3f
 PASS: hashes identical

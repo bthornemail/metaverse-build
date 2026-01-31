@@ -13,10 +13,12 @@ All higher-level features must compile to these operations.
 Create a persistent entity.
 
 ```
-{ "type": "ENTITY_CREATE", "id": "entity-id", "internal": "eN" }
+{ "type": "ENTITY_CREATE", "id": "entity-id", "owner": "valid:userA", "actor": "valid:userA", "internal": "eN" }
 ```
 
 - `id` is required
+- `owner` is required
+- `actor` is required
 - `internal` is optional (deterministic assignment if omitted)
 
 ---
@@ -25,7 +27,7 @@ Create a persistent entity.
 Remove an entity.
 
 ```
-{ "type": "ENTITY_DESTROY", "id": "entity-id" }
+{ "type": "ENTITY_DESTROY", "id": "entity-id", "actor": "valid:userA" }
 ```
 
 ---
@@ -34,7 +36,7 @@ Remove an entity.
 Attach a component to an entity.
 
 ```
-{ "type": "COMPONENT_ATTACH", "entity": "entity-id", "component": "transform", "cid": "e1.c1", "data": { ... } }
+{ "type": "COMPONENT_ATTACH", "entity": "entity-id", "component": "transform", "cid": "e1.c1", "data": { ... }, "actor": "valid:userA" }
 ```
 
 - `entity` and `component` are required
@@ -47,7 +49,7 @@ Attach a component to an entity.
 Update a component’s data.
 
 ```
-{ "type": "COMPONENT_UPDATE", "entity": "entity-id", "component": "transform", "patch": { ... } }
+{ "type": "COMPONENT_UPDATE", "entity": "entity-id", "component": "transform", "patch": { ... }, "actor": "valid:userA" }
 ```
 
 - `patch` is shallow-merged into component data
@@ -58,7 +60,7 @@ Update a component’s data.
 Remove a component from an entity.
 
 ```
-{ "type": "COMPONENT_DETACH", "entity": "entity-id", "component": "transform" }
+{ "type": "COMPONENT_DETACH", "entity": "entity-id", "component": "transform", "actor": "valid:userA" }
 ```
 
 ---
@@ -67,8 +69,25 @@ Remove a component from an entity.
 Move entity to a zone.
 
 ```
-{ "type": "ZONE_MOVE", "entity": "entity-id", "zone": "zone-id" }
+{ "type": "ZONE_MOVE", "entity": "entity-id", "zone": "zone-id", "actor": "valid:userA" }
 ```
+
+---
+
+## Authority Semantics
+
+- Every entity has an immutable `owner`.
+- Every mutating event must include an `actor`.
+- If `actor != owner` for the target entity → **HALT**.
+- `ENTITY_CREATE` must include `owner` and `actor`.
+- In v0, `owner` may be set to a value different from `actor` on create.
+- Missing `actor` or `owner` → **HALT**.
+
+HALT behavior:
+
+- state unchanged
+- snapshot hash unchanged
+- interpreter returns explicit halt result
 
 ---
 
