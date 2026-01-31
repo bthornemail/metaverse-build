@@ -166,6 +166,32 @@ def export():
         for name in transcripts:
             fh.write(f"- {name}\n")
 
+    # INDEX.md
+    index_path = os.path.join(VAULT, "INDEX.md")
+    latest_diff = ""
+    if os.path.isdir(diffs_dir):
+        diffs = [f for f in os.listdir(diffs_dir) if f.endswith(".md")]
+        diffs.sort()
+        if diffs:
+            latest_diff = diffs[-1]
+
+    with open(index_path, "w") as fh:
+        fh.write("# Metaverse Runtime Cockpit\n\n")
+        fh.write("## Current State\n")
+        fh.write("- Latest plan: [[plans/latest-plan.json]]\n")
+        fh.write("- Plan history: [[plans/plan-history.md]]\n")
+        if latest_diff:
+            fh.write(f"- Latest diff: [[plans/diffs/{latest_diff}]]\n")
+        fh.write("\n## Graphs\n")
+        fh.write("- Peer graph: [[graphs/peergraph.canvas]]\n")
+        fh.write("- Basis selection: [[graphs/basis.canvas]]\n")
+        fh.write("\n## Reports\n")
+        fh.write("- Basis flips: [[reports/basis-flips.md]]\n")
+        fh.write("- Phase transcripts: [[reports/phase-transcripts.md]]\n")
+        fh.write("\n## How to read this vault\n")
+        fh.write("This vault is a projection of lattice runtime artifacts.\n")
+        fh.write("All files are regenerated. Nothing here is authoritative.\n")
+
 if __name__ == "__main__":
     export()
     print(VAULT)
