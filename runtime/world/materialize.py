@@ -31,7 +31,7 @@ state = {
 }
 
 trace = []
-trace.append({"type": "WORLD_LOAD", "world": world_name})
+trace.append({"type": "WORLD_LOAD", "world": world_name, "zones": ir.get("zones", []) or []})
 
 # Deterministic materialization: preserve list order
 for ei, ent in enumerate(entities, start=1):
@@ -47,8 +47,9 @@ for ei, ent in enumerate(entities, start=1):
         if not isinstance(ctype, str):
             fail("invalid component type")
         cid = f"{internal_id}.c{ci}"
-        comp_list.append({"id": cid, "type": ctype, "data": comp.get("data", {})})
-        trace.append({"type": "COMPONENT_ATTACH", "entity": eid, "component": ctype, "cid": cid})
+        cdata = comp.get("data", {})
+        comp_list.append({"id": cid, "type": ctype, "data": cdata})
+        trace.append({"type": "COMPONENT_ATTACH", "entity": eid, "component": ctype, "cid": cid, "data": cdata})
 
     state["entities"].append({
         "id": eid,
@@ -57,6 +58,11 @@ for ei, ent in enumerate(entities, start=1):
         "zone": ent.get("zone"),
         "components": comp_list,
     })
+
+    if ent.get("owner") is not None:
+        trace.append({"type": "ENTITY_OWNER", "entity": eid, "owner": ent.get("owner")})
+    if ent.get("zone") is not None:
+        trace.append({"type": "ENTITY_ZONE", "entity": eid, "zone": ent.get("zone")})
 
 snapshot = {
     "world": world_name,

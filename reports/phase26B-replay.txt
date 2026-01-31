@@ -1,0 +1,8 @@
+# Phase 26B — Replay Determinism
+Date: 2026-01-31T14:48:04-08:00
+Trace: runtime/world/trace/room.seed.jsonl
+Snapshot: runtime/world/snapshots/room.snapshot.json
+Replayed: /home/main/devops/metaverse-build/runtime/world/snapshots/replay.snapshot.json
+Hash A: b9f2fea47d20e9792fa948fce9b9ce6ebcc82421200c80a10db84d40721d6c28
+Hash B: b9f2fea47d20e9792fa948fce9b9ce6ebcc82421200c80a10db84d40721d6c28
+PASS: hashes identical

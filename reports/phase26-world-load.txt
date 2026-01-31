@@ -1,7 +1,7 @@
 # Phase 26 — World IR Load
-Date: 2026-01-31T14:33:26-08:00
+Date: 2026-01-31T14:47:52-08:00
 World: room
 IR: world-ir/build/room.ir.json
 Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.snapshot.json
 Trace: /home/main/devops/metaverse-build/runtime/world/trace/room.seed.jsonl
-Snapshot SHA256: 4fd93d6740603273790b6cbba5bb15696643b060629eac173dd9fed2edf8ef75
+Snapshot SHA256: b9f2fea47d20e9792fa948fce9b9ce6ebcc82421200c80a10db84d40721d6c28
