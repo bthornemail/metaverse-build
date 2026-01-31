@@ -200,6 +200,7 @@ def export():
 
     with open(index_path, "w") as fh:
         fh.write("# Metaverse Runtime Cockpit\n\n")
+        fh.write("👉 [[START.canvas]]\n\n")
         fh.write("## Current State\n")
         fh.write("- Latest plan: [[plans/latest-plan.json]]\n")
         fh.write("- Plan history: [[plans/plan-history.md]]\n")
@@ -214,6 +215,45 @@ def export():
         fh.write("\n## How to read this vault\n")
         fh.write("This vault is a projection of lattice runtime artifacts.\n")
         fh.write("All files are regenerated. Nothing here is authoritative.\n")
+
+    # START.canvas cockpit
+    start_canvas = {
+        "nodes": [],
+        "edges": [],
+    }
+
+    def add_node(node_id, text, x, y):
+        start_canvas["nodes"].append({
+            "id": node_id,
+            "type": "text",
+            "x": x,
+            "y": y,
+            "width": 260,
+            "height": 90,
+            "text": text,
+        })
+
+    # State column
+    add_node("state-title", "STATE\\n(index: [[INDEX]])", 40, 40)
+    add_node("state-plan", "Latest Plan\\n[[plans/latest-plan.json]]\\nindex: [[INDEX]]", 40, 160)
+    add_node("state-graph", "Peer Graph\\n[[graphs/peergraph.canvas]]\\nindex: [[INDEX]]", 40, 280)
+    add_node("state-basis", "Basis Selection\\n[[graphs/basis.canvas]]\\nindex: [[INDEX]]", 40, 400)
+
+    # History column
+    add_node("hist-title", "HISTORY\\n(index: [[INDEX]])", 360, 40)
+    add_node("hist-plans", "Plan History\\n[[plans/plan-history.md]]\\nindex: [[INDEX]]", 360, 160)
+    if latest_diff:
+        add_node("hist-diff", f"Latest Diff\\n[[plans/diffs/{latest_diff}]]\\nindex: [[INDEX]]", 360, 280)
+    add_node("hist-flips", "Basis Flips\\n[[reports/basis-flips.md]]\\nindex: [[INDEX]]", 360, 400)
+
+    # Evidence column
+    add_node("evid-title", "EVIDENCE\\n(index: [[INDEX]])", 680, 40)
+    add_node("evid-transcripts", "Transcripts\\n[[reports/phase-transcripts.md]]\\nindex: [[INDEX]]", 680, 160)
+    add_node("evid-routing", "Routing Evidence\\n[[runtime/lattice/trace/routing.log]]\\nindex: [[INDEX]]", 680, 280)
+    add_node("evid-discovery", "Discovery Evidence\\n[[runtime/lattice/trace/discovery.log]]\\nindex: [[INDEX]]", 680, 400)
+
+    with open(os.path.join(VAULT, "START.canvas"), "w") as fh:
+        json.dump(start_canvas, fh, separators=(",", ":"))
 
 if __name__ == "__main__":
     export()
