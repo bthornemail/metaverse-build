@@ -14,6 +14,12 @@ All outputs are **non-authoritative** and reproducible from trace + plans.
 bash pipelines/mind-git/run.sh
 ```
 
+## Export to Vault
+
+```sh
+bash pipelines/mind-git/export-vault.sh
+```
+
 ## Outputs
 
 - `projections/mind-git/store/*.json` (content-addressed objects)
@@ -23,3 +29,4 @@ bash pipelines/mind-git/run.sh
 - `projections/mind-git/reports/basis-flip.md`
 - `projections/mind-git/reports/plan-history.md`
 - `reports/phase24-transcript.txt`
+- `reports/phase24G-transcript.txt`
