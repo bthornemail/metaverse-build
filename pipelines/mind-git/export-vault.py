@@ -190,6 +190,21 @@ def export():
         for name in transcripts:
             fh.write(f"- {name}\n")
 
+    # doctrine projection
+    doctrine_src = os.path.join(ROOT, "docs", "kernel-reconstruction.md")
+    doctrine_dir = os.path.join(VAULT, "doctrine")
+    if os.path.exists(doctrine_src):
+        ensure_dir(doctrine_dir)
+        with open(doctrine_src, "r") as fh:
+            doctrine = fh.read()
+        doctrine_out = os.path.join(doctrine_dir, "kernel-reconstruction.md")
+        with open(doctrine_out, "w") as fh:
+            fh.write("↩ [[INDEX]]\n\n")
+            fh.write("# Kernel Reconstruction Doctrine (Projection Copy)\n\n")
+            fh.write("This file is generated from the runtime repository.\n")
+            fh.write("Do not edit here.\n\n")
+            fh.write(doctrine)
+
     # INDEX.md
     index_path = os.path.join(VAULT, "INDEX.md")
     if not latest_diff and os.path.isdir(diffs_dir):
