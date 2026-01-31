@@ -16,6 +16,7 @@ world-ir/build/
 runtime/world/snapshots/
 runtime/world/trace/
 runtime/sync-world/state/
+runtime/sync-transport/state/
 
 # Lattice runtime state (generated)
 runtime/lattice/state/

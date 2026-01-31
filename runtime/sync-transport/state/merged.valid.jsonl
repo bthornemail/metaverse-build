@@ -1,3 +1,0 @@
-{"peer":"peer-A","seq":1,"event":{"type":"ENTITY_CREATE","id":"multi-001","owner":"valid:userA","actor":"valid:userA"}}
-{"peer":"peer-A","seq":2,"event":{"type":"COMPONENT_ATTACH","entity":"multi-001","component":"tag","data":{"label":"ok"},"actor":"valid:userA"}}
-{"peer":"peer-A","seq":3,"event":{"type":"COMPONENT_UPDATE","entity":"multi-001","component":"tag","patch":{"label":"ok2"},"actor":"valid:userA"}}
