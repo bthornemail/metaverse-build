@@ -126,3 +126,55 @@ This file is the build switchboard for metaverse-build.
 - Adapter Languages: Shell, TypeScript
 - Tooling: Docker
 - Stub: `build/`
+
+---
+
+## Runtime Kernel Layers
+
+These are cross-cutting capabilities that govern all others.
+
+### Authority Gate (executable invariant)
+
+- Location: invariants/authority/
+- Language: Haskell (pure, total, lazy)
+- Status: enforced
+- Role: halts invalid emission
+- Bypass: impossible by contract
+
+### POSIX Bus
+
+- Modes: FIFO, TCP
+- Selection: lattice plan → bus.env
+- Role: authority-gated transport
+- MQTT: deprecated and removed
+
+### Lattice Plan Runtime
+
+- Location: runtime/lattice/
+- Function: peer discovery + basis routing
+- Plan: content-addressed snapshots
+- Diff: deterministic structural diff
+- Rebind: live
+- Authority: projection only (does not bypass gate)
+
+### Projection Layer
+
+- Location: projections/
+- Authority: none
+- Outputs: canvases, reports, history
+- Git: ignored
+- Role: operator interface
+
+---
+
+## System Invariant
+
+All capabilities operate under:
+
+Identity → Authority → Trace → Projection
+
+Adapters are downstream only.
+Authority is upstream only.
+
+Violation must HALT.
+HALT emits zero bytes.
