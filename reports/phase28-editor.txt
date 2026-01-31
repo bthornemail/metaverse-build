@@ -1,0 +1,14 @@
+# Phase 28 — Editor Surface
+Date: 2026-01-31T15:24:13-08:00
+IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
+Base Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.snapshot.json
+Editor Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.editor.test.snapshot.json
+Editor Trace: /home/main/devops/metaverse-build/runtime/world/trace/room.editor.test.jsonl
+Hash Editor: 0f4a7b9145a1280466b587f1115c4255521ac1c2e1705d62e3a3d41e6f5b82d2
+Hash Replay: 0f4a7b9145a1280466b587f1115c4255521ac1c2e1705d62e3a3d41e6f5b82d2
+PASS: editor determinism
+Fail Status: 3
+Fail Stderr: HALT: NotOwner
+Hash Before Fail: 0f4a7b9145a1280466b587f1115c4255521ac1c2e1705d62e3a3d41e6f5b82d2
+Hash After Fail: 0f4a7b9145a1280466b587f1115c4255521ac1c2e1705d62e3a3d41e6f5b82d2
+PASS: authority HALT preserves snapshot
