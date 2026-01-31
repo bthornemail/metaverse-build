@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-FIFO="$ROOT/runtime/lattice/state/peers/beacons.fifo"
+FIFO="$ROOT/runtime/lattice/peers/observe/beacons.fifo"
 PORT="${PORT:-9334}"
 
 NC_BIN="$(command -v lattice-netcat || true)"

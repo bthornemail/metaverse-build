@@ -1,0 +1,17 @@
+# Phase 23 — Live Rebind Transcript
+Date: 2026-01-31T11:36:03-08:00
+Host: TOSHIBA-PORTEGE-Z30t-C
+
+## Tick 1 (prefer host-001)
+Plan hash: bbbe61ee0cce5906d0c1bed17b44c2dd5bf9395fa0bb33234800f36975e602c6
+## PASS (valid)
+Bytes after PASS: 6
+## Tick 2 (prefer host-002)
+Plan hash: df375129b7c25f45da5c0b7bb1645110a4af0002a5c063517efa1a0df84106e5
+## FAIL (invalid halts)
+HALT: no publish
+Exit code: 1
+Bytes after FAIL: 6
+Delta (should be 0 on FAIL): 0
+## Plan change
+Plan changed: yes

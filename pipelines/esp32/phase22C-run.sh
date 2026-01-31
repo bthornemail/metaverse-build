@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 REPORT="$ROOT/reports/phase22C-transcript.txt"
 BUS_ENV="${BUS_ENV:-$ROOT/pipelines/posix-bus/bus.env}"
 TTY="${TTY:-}"
-PLAN_FILE="$ROOT/runtime/lattice/state/plan/device-plan.json"
+PLAN_FILE="$ROOT/runtime/lattice/plan/device-plan.json"
 
 # Ensure bus env is current and set to tcp
 BUS_MODE=tcp BUS_ENV="$BUS_ENV" bash "$ROOT/pipelines/posix-bus/bus-env.sh" >/dev/null

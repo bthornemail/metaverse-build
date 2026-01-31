@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-PLAN="${PLAN_PATH:-$ROOT/runtime/lattice/state/plan/connection-plan.json}"
+PLAN="${PLAN_PATH:-$ROOT/runtime/lattice/plan/connection-plan.json}"
 OUT="${BUS_ENV:-$ROOT/pipelines/posix-bus/bus.env}"
 
 # Default mode

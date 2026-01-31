@@ -1,17 +1,12 @@
-# Lattice Runtime Substrate (metaverse-build/runtime/lattice)
+# Lattice Runtime (Phase 23)
 
-Purpose: structural discovery + connection management only.
-Outputs are **non-authoritative** and feed the semantic kernel via a narrow interface.
+Structural discovery and routing only. No semantic authority.
 
-Artifacts:
-- `state/peers/observed.jsonl`
-- `state/graph/peergraph.json`
-- `state/graph/basis.json`
-- `state/plan/connection-plan.json`
-- `state/traces/discovery.log`
-
-Entry points:
-- `bin/beacon-listen.sh`
-- `bin/peer-observer.sh`
-- `bin/graph-basis-compiler.sh`
-- `bin/run.sh`
+Directories:
+- peers/seeds.d (authoritative seeds)
+- peers/observe (append-only observations)
+- graph (derived peergraph + basis)
+- plan (derived connection-plan + device-plan)
+- compiler (observer/compiler/projector)
+- reconcile (tick + rebind)
+- trace (discovery + routing)

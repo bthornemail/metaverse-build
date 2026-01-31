@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 PORT="${PORT:-7070}"
-PLAN_FILE="${PLAN_FILE:-$ROOT/runtime/lattice/state/plan/device-plan.json}"
+PLAN_FILE="${PLAN_FILE:-$ROOT/runtime/lattice/plan/device-plan.json}"
 PIDFILE="$ROOT/pipelines/discovery/plan-server.pid"
 
 NC_BIN="$(command -v lattice-netcat || true)"

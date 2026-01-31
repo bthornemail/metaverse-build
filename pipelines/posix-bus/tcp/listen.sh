@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 ENV_FILE="${BUS_ENV:-$ROOT/pipelines/posix-bus/bus.env}"
 STATE_DIR="$ROOT/pipelines/posix-bus/tcp/state"
 PIDFILE="$STATE_DIR/listen.pid"
+PORTFILE="$STATE_DIR/listen.port"
 OUTFILE="$STATE_DIR/trace.out"
 
 mkdir -p "$STATE_DIR"
@@ -29,10 +30,15 @@ host=$(printf "%s" "$BUS_TCP" | sed -n 's|tcp://\([^:/]*\).*|\1|p')
 port=$(printf "%s" "$BUS_TCP" | sed -n 's|tcp://[^:/]*:\([0-9][0-9]*\).*|\1|p')
 : "${port:?missing tcp port}"
 
-# If already running, no-op
+# If already running, restart when port changes
 if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" >/dev/null 2>&1; then
-  echo "tcp listener already running (pid $(cat "$PIDFILE"))"
-  exit 0
+  if [ -f "$PORTFILE" ] && [ "$(cat "$PORTFILE")" != "$port" ]; then
+    kill "$(cat "$PIDFILE")" >/dev/null 2>&1 || true
+    rm -f "$PIDFILE"
+  else
+    echo "tcp listener already running (pid $(cat "$PIDFILE"))"
+    exit 0
+  fi
 fi
 
 # Start listener
@@ -47,5 +53,6 @@ fi
 ) &
 
 echo $! > "$PIDFILE"
+echo "$port" > "$PORTFILE"
 
 echo "tcp listener started on $host:$port (pid $(cat "$PIDFILE"))"

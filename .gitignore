@@ -2,6 +2,13 @@
 pipelines/posix-bus/bus.env
 pipelines/posix-bus/trace.fifo
 pipelines/posix-bus/tcp/state/
+pipelines/discovery/plan-server.pid
+
+# Lattice runtime derived state
+runtime/lattice/graph/
+runtime/lattice/plan/
+runtime/lattice/peers/observe/
+runtime/lattice/trace/
 
 # Lattice runtime state (generated)
 runtime/lattice/state/

@@ -13,7 +13,7 @@ OBS_PID=$!
 
 # Compile graph/basis/plan periodically
 while true; do
-  bash "$ROOT/runtime/lattice/bin/graph-basis-compiler.sh"
+  bash "$ROOT/runtime/lattice/reconcile/tick.sh"
   sleep 2
   if [ "${ONCE:-}" = "1" ]; then
     break
