@@ -37,6 +37,11 @@ The runtime is the machine interface.
 
 ---
 
+
+## Kernel Reconstruction Doctrine
+
+See: `docs/kernel-reconstruction.md`
+
 ## Build Switchboard
 
 See:
