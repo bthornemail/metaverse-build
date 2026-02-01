@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["world", "timeline", "nodes"],
+  "properties": {
+    "world": {"type": "string"},
+    "timeline": {"type": "string"},
+    "nodes": {"type": "object"}
+  },
+  "additionalProperties": true
+}

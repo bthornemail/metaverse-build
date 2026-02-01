@@ -22,6 +22,7 @@ runtime/zones/authority-policy.local.json
 runtime/checkpoint/state/
 runtime/checkpoint/state/ck/
 runtime/shards/state/
+runtime/time/state/
 
 # Lattice runtime state (generated)
 runtime/lattice/state/
