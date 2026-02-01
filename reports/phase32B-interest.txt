@@ -1,0 +1,8 @@
+# Phase 32B — Interest Management
+Date: 2026-01-31T16:25:30-08:00
+Center: tile-0-0
+Radius: 1
+Count: 9
+First: tile--1--1
+Last: tile-1-1
+PASS: deterministic interest set

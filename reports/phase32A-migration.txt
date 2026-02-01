@@ -1,0 +1,11 @@
+# Phase 32A — Cross-Zone Migration
+Date: 2026-01-31T16:25:25-08:00
+IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
+Index: /home/main/devops/metaverse-build/runtime/zones/state/zone-index.json
+Source Zone Snapshot: /home/main/devops/metaverse-build/runtime/zones/state/zone-a.snapshot.json
+Dest Zone Snapshot: /home/main/devops/metaverse-build/runtime/zones/state/zone-b.snapshot.json
+Transfer Hash: d18250fe3a1cee16f04aab1d304ace2a2d5119417f7a3bcc50b0f90c28e495ff
+Transfer Hash (2): d18250fe3a1cee16f04aab1d304ace2a2d5119417f7a3bcc50b0f90c28e495ff
+Dest Hash: a1daf9881b82d4c1bc55e4d65c5eb93dd597a9319d419f182622843bcf00dc1c
+Dest Hash (2): a1daf9881b82d4c1bc55e4d65c5eb93dd597a9319d419f182622843bcf00dc1c
+PASS: deterministic migration

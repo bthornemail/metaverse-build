@@ -18,6 +18,7 @@ runtime/world/trace/
 runtime/sync-world/state/
 runtime/sync-transport/state/
 runtime/zones/state/
+runtime/zones/authority-policy.local.json
 
 # Lattice runtime state (generated)
 runtime/lattice/state/

@@ -1,0 +1,5 @@
+{
+  "zone-a": ["valid:userA"],
+  "zone-b": ["valid:userB"],
+  "*": ["valid:admin"]
+}
