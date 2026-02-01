@@ -1,0 +1,9 @@
+# Phase 31 — Hybrid Zone Model
+Date: 2026-01-31T16:11:34-08:00
+IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
+Base Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.snapshot.json
+Zone Snapshot: /home/main/devops/metaverse-build/runtime/zones/state/zone.snapshot.json
+Zone Index: /home/main/devops/metaverse-build/runtime/zones/state/zone-index.json
+Route (zone-a): zone-a
+Route (zone-b): zone-b
+PASS: spatial routing deterministic

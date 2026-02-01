@@ -17,6 +17,7 @@ runtime/world/snapshots/
 runtime/world/trace/
 runtime/sync-world/state/
 runtime/sync-transport/state/
+runtime/zones/state/
 
 # Lattice runtime state (generated)
 runtime/lattice/state/

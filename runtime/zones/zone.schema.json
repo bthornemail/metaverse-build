@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["world", "zone", "state", "source_snapshot_hash"],
+  "properties": {
+    "world": {"type": "string"},
+    "zone": {"type": "string"},
+    "state": {
+      "type": "object",
+      "required": ["entities"],
+      "properties": {
+        "entities": {"type": "array"}
+      }
+    },
+    "source_snapshot_hash": {"type": "string"}
+  },
+  "additionalProperties": true
+}
