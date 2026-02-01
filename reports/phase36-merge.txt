@@ -1,0 +1,7 @@
+# Phase 36 — Timeline Merge Semantics
+Date: 2026-01-31T23:18:34-08:00
+OK Status: 0
+OK Output: MERGE_OK
+DENY Status: 3
+DENY Output: HALT: MergeDenied: snapshot hash mismatch
+PASS: merge gate enforced
