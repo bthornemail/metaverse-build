@@ -1,0 +1,10 @@
+# Phase 33B — Rolling Checkpoints
+Date: 2026-01-31T21:48:37-08:00
+IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
+Checkpoint Dir: /home/main/devops/metaverse-build/runtime/checkpoint/state/ck
+Remaining Checkpoints: 2
+Prune Result: removed 1
+PASS: prune retention
+Window Hash: 1e9c2e310f697a7a43fdec385ccbb624bc9e382b3277c3f53ce80aaf1fc672b5
+Full Hash: 3776aae5c086c1944ec86f3fb1ed586ac819addfae8a5277ff261f9c22caff64
+PASS: window replay produces partial state
