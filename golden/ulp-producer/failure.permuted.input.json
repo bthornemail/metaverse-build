@@ -1,0 +1,19 @@
+{
+  "artifacts": [
+    {
+      "content_utf8": "error: compilation failed\nhint: check toolchain\n",
+      "mime": "text/plain",
+      "name": "build.log"
+    }
+  ],
+  "build": {
+    "profile": "failure",
+    "toolchain": {
+      "python": "python-3.11.8",
+      "node": "node-20.11.1",
+      "ghc": "ghc-9.6.5"
+    },
+    "plan_text": "metaverse-build failure plan v0\nstep: simulate failing build\n",
+    "exit": "1"
+  }
+}

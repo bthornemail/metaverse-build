@@ -1,0 +1,24 @@
+{
+  "artifacts": [
+    {
+      "content_utf8": "hello, world\n",
+      "mime": "text/plain",
+      "name": "hello.txt"
+    },
+    {
+      "content_utf8": "{\"ok\":true}\n",
+      "mime": "application/json",
+      "name": "ok.json"
+    }
+  ],
+  "build": {
+    "exit": "0",
+    "plan_text": "metaverse-build mini plan v0\nstep: emit two tiny artifacts\n",
+    "profile": "mini",
+    "toolchain": {
+      "ghc": "unknown",
+      "node": "unknown",
+      "python": "unknown"
+    }
+  }
+}

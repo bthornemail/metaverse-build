@@ -1,0 +1,29 @@
+{
+  "artifacts": [
+    {
+      "mime": "application/octet-stream",
+      "content_utf8": "ELF:fake-binary-bytes-as-utf8\n",
+      "name": "app.bin"
+    },
+    {
+      "content_utf8": "artifact:app\nartifact:lib\n",
+      "name": "manifest.txt",
+      "mime": "text/plain"
+    },
+    {
+      "name": "build_graph.json",
+      "content_utf8": "{\"nodes\":[\"app\",\"lib\"],\"edges\":[[\"app\",\"lib\"]]}\n",
+      "mime": "application/json"
+    }
+  ],
+  "build": {
+    "toolchain": {
+      "python": "python-3.11.8",
+      "ghc": "ghc-9.6.5",
+      "node": "node-20.11.1"
+    },
+    "profile": "multi",
+    "exit": "0",
+    "plan_text": "metaverse-build multi plan v0\nstep: emit build graph + artifacts\nnodes:\n  - app\n  - lib\nedges:\n  - app -> lib\n"
+  }
+}
