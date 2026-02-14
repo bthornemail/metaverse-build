@@ -1,14 +1,14 @@
 # Phase 27B — Authority Enforcement
-Date: 2026-01-31T16:36:51-08:00
-IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
-Seed Trace: /home/main/devops/metaverse-build/runtime/world/trace/room.seed.jsonl
-PASS Events: /home/main/devops/metaverse-build/runtime/world/trace/room.authority.pass.jsonl
-PASS Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.authority.pass.json
+Date: 2026-02-14T15:40:13-08:00
+IR: /home/main/production/metaverse/world-ir/build/room.ir.json
+Seed Trace: /home/main/production/metaverse/runtime/world/trace/room.seed.jsonl
+PASS Events: /home/main/production/metaverse/runtime/world/trace/room.authority.pass.jsonl
+PASS Snapshot: /home/main/production/metaverse/runtime/world/snapshots/room.authority.pass.json
 PASS Hash: ec462eba42ac29f021175471580a307402f97c4f6ad608527b02c408d19ba97a
-FAIL Pre Events: /home/main/devops/metaverse-build/runtime/world/trace/room.authority.pre.jsonl
-FAIL Pre Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.authority.pre.json
+FAIL Pre Events: /home/main/production/metaverse/runtime/world/trace/room.authority.pre.jsonl
+FAIL Pre Snapshot: /home/main/production/metaverse/runtime/world/snapshots/room.authority.pre.json
 FAIL Pre Hash: ba537fd7a011e394bd0fc042dd51b187de0e2c5d6f595cef7bf18ec56ffc7cfa
-FAIL Events: /home/main/devops/metaverse-build/runtime/world/trace/room.authority.fail.jsonl
+FAIL Events: /home/main/production/metaverse/runtime/world/trace/room.authority.fail.jsonl
 HALT Status: 3
 HALT Message: HALT: NotOwner
 FAIL Snapshot Exists: no

@@ -1,8 +1,8 @@
 # Phase 33A — Checkpoint Kernel
-Date: 2026-01-31T21:45:33-08:00
-IR: /home/main/devops/metaverse-build/world-ir/build/room.ir.json
-Base Snapshot: /home/main/devops/metaverse-build/runtime/world/snapshots/room.snapshot.json
-Checkpoint: /home/main/devops/metaverse-build/runtime/checkpoint/state/zone.checkpoint.json
+Date: 2026-02-14T15:37:07-08:00
+IR: /home/main/production/metaverse/world-ir/build/room.ir.json
+Base Snapshot: /home/main/production/metaverse/runtime/world/snapshots/room.snapshot.json
+Checkpoint: /home/main/production/metaverse/runtime/checkpoint/state/zone.checkpoint.json
 Expected Hash: 8fbb0beaeba1d3d2e9bce5788e8ae836e1cb2bb7dba9c6d80c8bce9025dd3662
 Restored Hash: 8fbb0beaeba1d3d2e9bce5788e8ae836e1cb2bb7dba9c6d80c8bce9025dd3662
 PASS: restore equals expected

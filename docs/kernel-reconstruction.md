@@ -27,9 +27,10 @@ But not the spine.
 
 The spine is:
 
-Authority kernel
-→ world compiler
-→ projection portals
+Authority kernel (Haskell invariant)
+→ POSIX bus (FIFO/TCP transport)
+→ World IR compiler
+→ Projection portals
 
 Everything else plugs in downstream.
 
@@ -88,22 +89,36 @@ Intent → Authority → Trace → Compile → Projection
 We are not starting from zero.
 We are doing kernel-first reconstruction with archaeological reuse.
 
+Current Status (Phase 3):
+
+- Authority kernel: operational (invariants/authority/)
+- World IR: defined (world-ir/SCHEMA.md)
+- Runtime components: operational (runtime/)
+- Test infrastructure: operational (golden/, scripts/)
+- Pipeline execution: operational (pipelines/)
+
 Phases:
 
-1. **Capability Harvesting**
+1. **Capability Harvesting** ✅ COMPLETE
    - Document what is reusable
    - Identify violations of kernel rules
    - No code copy
 
-2. **World IR Definition**
-   - Define canonical intermediate representation
+2. **World IR Definition** ✅ COMPLETE
+   - Canonical intermediate representation defined
+   - Schema: world-ir/SCHEMA.md
    - Everything compiles to IR
 
-3. **Adapter Reimplementation**
+3. **Adapter Reimplementation** 🔄 IN PROGRESS
    - Reimplement semantics, not code
    - Wrap behind invariant
    - Emit trace
    - Compile to IR
+
+4. **Projection Layer** 🔄 IN PROGRESS
+   - mind-git pipeline operational
+   - Vault export available
+   - Canvas rendering defined
 
 ---
 
@@ -120,12 +135,12 @@ Phases:
 
 ## What To Do
 
-- harvest ideas
-- formalize IR
-- enforce invariant first
-- rebuild adapters cleanly
-- treat portals as projections
-- keep old projects as reference docs
+- ✅ harvest ideas
+- ✅ formalize IR (world-ir/SCHEMA.md)
+- ✅ enforce invariant first (AuthorityGate)
+- 🔄 rebuild adapters cleanly
+- ✅ treat portals as projections
+- ✅ keep old projects as reference docs
 
 ---
 
