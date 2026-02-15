@@ -1,5 +1,5 @@
 # Phase 26 — World IR Load
-Date: 2026-02-14T15:44:48-08:00
+Date: 2026-02-14T16:40:57-08:00
 World: room
 IR: /home/main/production/metaverse/world-ir/build/room.ir.json
 Snapshot: /home/main/production/metaverse/runtime/world/snapshots/room.snapshot.json

@@ -1,0 +1,21 @@
+PARALLELIZATION BENCHMARK RESULTS
+Date: Sat Feb 14 04:27:38 PM PST 2026
+--------------------------------------
+1. PROCESS SPAWN
+Process spawn: 45/sec
+2. AUTHORITY GATE
+Authority gate: 5/sec
+3. EVENT APPLICATION
+Serial: 25.8/sec
+4. BATCH
+Batch: 2941.1/sec
+5. PARALLEL
+1 workers: 416.6/sec
+2 workers: 307.6/sec
+4 workers: 222.2/sec
+8 workers: 104.7/sec
+6. CHECKPOINT PARALLEL
+1 checkpoints: .420s
+2 checkpoints: .109s
+4 checkpoints: .174s
+8 checkpoints: .323s

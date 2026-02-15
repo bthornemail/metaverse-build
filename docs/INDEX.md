@@ -78,6 +78,7 @@ Quick reference to all documentation in this folder.
 | Evidence | [evidence.md](evidence.md) |
 | Reports | [reports.md](reports.md) |
 | Build Map | [build-map.md](build-map.md) |
+| Benchmark | [BENCHMARK.md](BENCHMARK.md) |
 
 ## Legend
 
