@@ -6,6 +6,7 @@ Quick reference to all documentation in this folder.
 
 | Topic | File |
 |-------|------|
+| Achievement | [ACHIEVEMENT.md](ACHIEVEMENT.md) |
 | Executive Summary | [../EXECUTIVE_SUMMARY.md](../EXECUTIVE_SUMMARY.md) |
 | Project Summary | [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) |
 | Project Overview | [README.md](README.md) |
@@ -79,6 +80,7 @@ Quick reference to all documentation in this folder.
 | Reports | [reports.md](reports.md) |
 | Build Map | [build-map.md](build-map.md) |
 | Benchmark | [BENCHMARK.md](BENCHMARK.md) |
+| ESP32 | [ESP32.md](ESP32.md) |
 
 ## Legend
 

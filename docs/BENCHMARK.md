@@ -71,6 +71,46 @@ Performance metrics for the Metaverse Build Runtime.
 
 The Authority Gate has been compiled to native code, achieving a **14.7x speedup**. The remaining bottleneck is now the Python subprocess overhead, not the Haskell itself.
 
+## Multi-Language Comparison
+
+| Language | Rate | vs Python |
+|----------|------|-----------|
+| C (compiled) | 437/sec | **17x** |
+| Haskell (compiled) | 78/sec | **3x** |
+| Python (interpreted) | 26/sec | 1x |
+
+### Build Commands
+
+```bash
+# C version (fastest)
+gcc -O3 -march=native -o authority_gate authority_gate.c
+
+# Haskell version
+ghc -O2 -o AuthorityGate.native AuthorityGate.hs AuthorityProjection.hs
+
+# Python version (baseline)
+python3 authority_gate.py
+```
+
+### Ultimate Optimization: In-Process C
+
+| Method | Rate | vs Subprocess |
+|-------|------|---------------|
+| Subprocess spawn | 625/sec | baseline |
+| In-process (100) | 16,666/sec | **27x** |
+| In-process (1K) | 66,666/sec | **107x** |
+| In-process (10K) | **69,930/sec** | **112x** |
+
+### Key Finding
+
+**In-process C achieves 70,000 events/sec** - 112x faster than subprocess calls. This is the optimal architecture.
+
+### Files
+
+- `builds/c/authority_gate` - C native binary
+- `builds/haskell/authority_gate` - Haskell native binary
+- `builds/python/authority_gate.py` - Python script
+
 ### Bottleneck Analysis
 
 The gap between **2.1M ops/sec** (potential) and **5 ops/sec** (actual) is **400,000x** - almost all time is spent in:
