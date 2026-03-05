@@ -251,3 +251,60 @@ bash scripts/golden-replay.sh \
 - Plans are content-addressed snapshots
 - Projection artifacts are disposable and git-ignored
 - All adapters are downstream projections only
+
+## Baseline Resume State (Authoritative)
+
+Current known baseline for work planning:
+
+- `main` track: `wave 26` at commit `dc7ac07` (2026-02-14)
+- `commit-all-030526` track: latest commit `b562974` (2026-02-16)
+- Phase chain exists through `Phase 36` (`136e7a9`)
+- No confirmed `Phase 37+` report in `reports/`
+
+Evidence anchors:
+
+- `reports/phase26-world-load.txt`
+- `reports/phase33A-checkpoint.txt`
+- `reports/phase35B-time.txt`
+- `reports/phase36-merge.txt`
+
+## Wave 27 Scope Guard
+
+Wave 27 is documentation and explorer augmentation unless explicitly overridden:
+
+- Document features/functions/capabilities/interfaces/adapters across phases
+- Build deterministic explorer projections (`.canvas`) from canonical NDJSON/JSONL facts
+- Do not change protocol semantics in this wave without versioned migration docs
+
+## Phase 37 Entry Gate
+
+Before starting Phase 37 implementation tasks, re-validate gates:
+
+1. `phase26-world-load` PASS
+2. `phase33A-checkpoint` PASS (restore equality + corruption HALT detection)
+3. `phase35B-time` PASS (branch + window materialization)
+4. `phase36-merge` PASS (`MERGE_OK` and deny-on-mismatch HALT)
+
+If any gate is stale or failing, stop and refresh evidence first.
+
+## Schema Lock (Required)
+
+Any augmentation touching docs/explorer/runtime contracts must preserve:
+
+- JSON Canvas remains projection-only (never authority)
+- NDJSON/JSONL remains canonical append-only event/index substrate
+- Parser/validator behavior remains fail-closed
+- No silent schema drift; unknown required fields must reject
+
+## Secret and Env Policy
+
+For documentation and analysis passes:
+
+- No secrets are required by default
+- Use only non-secret env controls (`CLOSURE_*`, `SPINE_*`, `AUTHORITY_*`) as needed
+- Never commit tokens/keys
+
+If remote operations are required:
+
+- Use least-privilege ephemeral credentials (session env only)
+- Do not persist secrets in repository files
