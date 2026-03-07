@@ -60,6 +60,7 @@ Quick reference to all documentation in this folder.
 | World IR | [world-ir.md](world-ir.md) |
 | Profiles | [profiles.md](profiles.md) |
 | Firmware | [firmware.md](firmware.md) |
+| Runtime Host Layer Contract | [LAYER_CONTRACT_RUNTIME_HOST_METAVERSE_BUILD.md](LAYER_CONTRACT_RUNTIME_HOST_METAVERSE_BUILD.md) |
 
 ## Supporting
 

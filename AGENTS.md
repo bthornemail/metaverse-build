@@ -257,7 +257,8 @@ bash scripts/golden-replay.sh \
 Current known baseline for work planning:
 
 - `main` track: `wave 26` at commit `dc7ac07` (2026-02-14)
-- `commit-all-030526` track: latest commit `b562974` (2026-02-16)
+- `commit-all-030526` remote anchor: `b562974` (2026-02-16)
+- `commit-all-030526` local doc-guardrail head: `6ca7826` (2026-03-05, ahead of `b562974` by 1 commit)
 - Phase chain exists through `Phase 36` (`136e7a9`)
 - No confirmed `Phase 37+` report in `reports/`
 
@@ -271,10 +272,18 @@ Evidence anchors:
 ## Wave 27 Scope Guard
 
 Wave 27 is documentation and explorer augmentation unless explicitly overridden:
+Wave 27 is documentation + explorer augmentation, not protocol semantic change.
 
 - Document features/functions/capabilities/interfaces/adapters across phases
 - Build deterministic explorer projections (`.canvas`) from canonical NDJSON/JSONL facts
 - Do not change protocol semantics in this wave without versioned migration docs
+
+Required Wave 27 deliverables:
+
+- `/home/main/devops/dev-vault/Repos/Documentation-Audit/`
+- `/home/main/devops/dev-vault/Repos/Metaverse-Build-Augmentation/`
+- `/home/main/devops/dev-vault/Canvases/Explorer/`
+- Planned NDJSON explorer artifacts under `artifacts/explorer/*`
 
 ## Phase 37 Entry Gate
 
@@ -286,6 +295,11 @@ Before starting Phase 37 implementation tasks, re-validate gates:
 4. `phase36-merge` PASS (`MERGE_OK` and deny-on-mismatch HALT)
 
 If any gate is stale or failing, stop and refresh evidence first.
+Use reports-first sequence before augmentation promotion:
+
+1. Confirm evidence files in `reports/phase26-world-load.txt`, `reports/phase33A-checkpoint.txt`, `reports/phase35B-time.txt`, `reports/phase36-merge.txt`.
+2. Confirm PASS semantics in those files.
+3. Only then start Wave 27 augmentation outputs.
 
 ## Schema Lock (Required)
 
@@ -295,11 +309,14 @@ Any augmentation touching docs/explorer/runtime contracts must preserve:
 - NDJSON/JSONL remains canonical append-only event/index substrate
 - Parser/validator behavior remains fail-closed
 - No silent schema drift; unknown required fields must reject
+- Unknown required keys, missing required fields, and digest mismatch must reject
+- No silent coercion, clamping, or auto-repair in parsers/validators
 
 ## Secret and Env Policy
 
 For documentation and analysis passes:
 
+- Docs pass requires no secrets
 - No secrets are required by default
 - Use only non-secret env controls (`CLOSURE_*`, `SPINE_*`, `AUTHORITY_*`) as needed
 - Never commit tokens/keys

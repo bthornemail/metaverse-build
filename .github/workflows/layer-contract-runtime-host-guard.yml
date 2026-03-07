@@ -1,0 +1,21 @@
+name: runtime host layer contract guard
+
+on:
+  pull_request:
+    paths:
+      - "docs/LAYER_CONTRACT_RUNTIME_HOST_METAVERSE_BUILD.md"
+      - "docs/INDEX.md"
+      - "scripts/check-layer-contract-runtime-host.sh"
+      - ".github/workflows/layer-contract-runtime-host-guard.yml"
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  runtime-host-layer-contract:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: runtime host layer contract guard
+        run: bash scripts/check-layer-contract-runtime-host.sh
