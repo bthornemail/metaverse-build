@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-STATE_DIR="$ROOT/runtime/checkpoint/state"
-REPORT="$ROOT/reports/phase33A-checkpoint.txt"
+STATE_DIR="${STATE_DIR:-$ROOT/runtime/checkpoint/state}"
+REPORT="${REPORT:-$ROOT/reports/phase33A-checkpoint.txt}"
 TRACE_DIR="$ROOT/runtime/world/trace"
 SNAP_DIR="$ROOT/runtime/world/snapshots"
 

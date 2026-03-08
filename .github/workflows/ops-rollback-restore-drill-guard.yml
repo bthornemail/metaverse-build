@@ -1,0 +1,27 @@
+name: ops rollback restore drill guard
+
+on:
+  pull_request:
+    paths:
+      - "runtime/checkpoint/**"
+      - "runtime/shards/**"
+      - "runtime/world/**"
+      - "scripts/check-ops-rollback-restore-drill.sh"
+      - "scripts/ops-rollback-restore-must-reject.sh"
+      - "scripts/check-federated-transport-equivalence.sh"
+      - "evidence/pre-hardware/must-reject/checkpoint-*"
+      - ".github/workflows/ops-rollback-restore-drill-guard.yml"
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  ops-rollback-restore-drill:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: federated transport equivalence closure
+        run: bash scripts/check-federated-transport-equivalence.sh
+      - name: ops rollback restore drill closure
+        run: bash scripts/check-ops-rollback-restore-drill.sh

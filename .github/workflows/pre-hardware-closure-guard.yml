@@ -1,0 +1,17 @@
+name: Pre-Hardware Closure Guard
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  pre_hardware_closure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pre-hardware closure
+        run: bash scripts/check-pre-hardware-closure.sh

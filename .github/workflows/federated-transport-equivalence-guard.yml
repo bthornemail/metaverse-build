@@ -1,0 +1,29 @@
+name: federated transport equivalence guard
+
+on:
+  pull_request:
+    paths:
+      - "runtime/sync-transport/**"
+      - "runtime/sync-world/**"
+      - "runtime/world/**"
+      - "world-ir/**"
+      - "scripts/check-federated-transport-equivalence.sh"
+      - "scripts/federated-transport-equivalence-must-reject.sh"
+      - "scripts/validate-transport-envelope-sequence.py"
+      - "scripts/check-world-ir-runtime-replay.sh"
+      - "evidence/pre-hardware/must-reject/transport-*"
+      - ".github/workflows/federated-transport-equivalence-guard.yml"
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  federated-transport-equivalence:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: world ir replay closure
+        run: bash scripts/check-world-ir-runtime-replay.sh world-ir/build/room.ir.json
+      - name: federated transport equivalence closure
+        run: bash scripts/check-federated-transport-equivalence.sh

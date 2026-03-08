@@ -2,11 +2,11 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-STATE_DIR="$ROOT/runtime/sync-transport/state"
-BUS_FIFO="$STATE_DIR/bus.fifo"
-LOG_DIR="$ROOT/runtime/sync-world/state/logs"
-MERGED_LOG="$ROOT/runtime/sync-world/state/merged.jsonl"
-REPORT="$ROOT/reports/phase30A-transport.txt"
+STATE_DIR="${STATE_DIR:-$ROOT/runtime/sync-transport/state}"
+BUS_FIFO="${BUS_FIFO:-$STATE_DIR/bus.fifo}"
+LOG_DIR="${LOG_DIR:-$ROOT/runtime/sync-world/state/logs}"
+MERGED_LOG="${MERGED_LOG:-$ROOT/runtime/sync-world/state/merged.jsonl}"
+REPORT="${REPORT:-$ROOT/reports/phase30A-transport.txt}"
 
 IR="$ROOT/world-ir/build/room.ir.json"
 BASE_SNAPSHOT="$ROOT/runtime/world/snapshots/room.snapshot.json"

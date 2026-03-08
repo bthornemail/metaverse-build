@@ -1,0 +1,21 @@
+name: world ir runtime replay guard
+
+on:
+  pull_request:
+    paths:
+      - "runtime/world/**"
+      - "world-ir/**"
+      - "scripts/check-world-ir-runtime-replay.sh"
+      - ".github/workflows/world-ir-runtime-replay-guard.yml"
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  world-ir-runtime-replay:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: world ir runtime replay closure
+        run: bash scripts/check-world-ir-runtime-replay.sh world-ir/build/room.ir.json

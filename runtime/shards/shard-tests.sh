@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-STATE_DIR="$ROOT/runtime/shards/state"
-REPORT="$ROOT/reports/phase34-shards.txt"
+STATE_DIR="${STATE_DIR:-$ROOT/runtime/shards/state}"
+REPORT="${REPORT:-$ROOT/reports/phase34-shards.txt}"
 
 IR="$ROOT/world-ir/build/room.ir.json"
 BASE_SNAPSHOT="$ROOT/runtime/world/snapshots/room.snapshot.json"

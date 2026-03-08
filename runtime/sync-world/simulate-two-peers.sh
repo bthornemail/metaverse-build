@@ -2,10 +2,10 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-STATE_DIR="$ROOT/runtime/sync-world/state"
-LOG_DIR="$STATE_DIR/logs"
-MERGED_LOG="$STATE_DIR/merged.jsonl"
-REPORT="$ROOT/reports/phase29-sync.txt"
+STATE_DIR="${STATE_DIR:-$ROOT/runtime/sync-world/state}"
+LOG_DIR="${LOG_DIR:-$STATE_DIR/logs}"
+MERGED_LOG="${MERGED_LOG:-$STATE_DIR/merged.jsonl}"
+REPORT="${REPORT:-$ROOT/reports/phase29-sync.txt}"
 
 IR="$ROOT/world-ir/build/room.ir.json"
 BASE_SNAPSHOT="$ROOT/runtime/world/snapshots/room.snapshot.json"
