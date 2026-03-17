@@ -1,0 +1,54 @@
+{
+  "v": "metaverse.production_readiness.rc_final.v0",
+  "authority": "advisory",
+  "rc_worktrees": {
+    "atomic_kernel": {
+      "path": "/home/main/devops/.rc-worktrees/atomic-kernel-rc-final",
+      "commit": "d0c79fa",
+      "dirty_count": 0
+    },
+    "metaverse": {
+      "path": "/home/main/devops/.rc-worktrees/metaverse-rc-final",
+      "commit": "a8ee4ee",
+      "dirty_count": 0
+    },
+    "metaverse_kit": {
+      "path": "/home/main/devops/.rc-worktrees/metaverse-kit-rc-final",
+      "commit": "cc0c435",
+      "dirty_count": 0
+    }
+  },
+  "chains": {
+    "atomic_kernel": {
+      "vnext_replay_parity": true,
+      "vnext_api_compat": true,
+      "vnext_coq_parity": true,
+      "release_gate": true
+    },
+    "metaverse": {
+      "tetragrammatron_gate": true,
+      "ast_spherepack_gate": true,
+      "living_xml_gate": true,
+      "identity_gate": true,
+      "seed_algebra_gate": true,
+      "lane16_gate": true,
+      "runtime_host_layer_contract": true,
+      "world_ir_runtime_replay_closure": true,
+      "ops_rollback_restore_drill": true
+    },
+    "metaverse_kit": {
+      "no_authority_gate": true,
+      "portal_contract": true,
+      "runtime_handoff_wave30_contract": true,
+      "runtime_handoff_wave31_contract": true,
+      "runtime_materialize_wave31_contract": true,
+      "release_verify": true
+    },
+    "closure": {
+      "closure_spine_smoke": true
+    }
+  },
+  "all_critical_gates_green": true,
+  "recommendation": "Ready for production",
+  "launch_scope_note": "Browser projection is production-approved within currently validated contract scope; broader cross-browser matrix claims remain bounded to validated surfaces."
+}

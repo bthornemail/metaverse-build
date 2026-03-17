@@ -1,0 +1,173 @@
+{
+  "all_critical_gates_green": true,
+  "authority": "advisory",
+  "authority_boundaries": {
+    "no_authority_gate_green": true,
+    "projection_can_mutate_canonical_truth": false,
+    "runtime_host_layer_contract_green": true,
+    "world_ir_runtime_replay_closure_green": true
+  },
+  "baseline": {
+    "atomic_kernel": {
+      "branch": "main",
+      "commit": "470537d6c909f3de5cb2df2a071ffde4ccb8aa56",
+      "dirty_count": 111,
+      "repo": "/home/main/devops/atomic-kernel"
+    },
+    "kernel_policy": {
+      "compat_window": "one_major_cycle",
+      "no_authority_change": false,
+      "promotion_approved": true,
+      "vnext_status": "promoted_normative_lane"
+    },
+    "metaverse": {
+      "branch": "commit-all-030526",
+      "commit": "ddd41de694a64644ac82e6c05ca3c2ef26325399",
+      "dirty_count": 62,
+      "repo": "/home/main/devops/metaverse"
+    },
+    "metaverse_kit": {
+      "branch": "main",
+      "commit": "f48da605ae788edeb33bb8e085711732a44c8a5a",
+      "dirty_count": 2,
+      "repo": "/home/main/devops/metaverse-kit"
+    }
+  },
+  "browser_projector": {
+    "cross_browser_matrix_fully_validated": false,
+    "deterministic_contract_checks_green": true,
+    "must_reject_fail_closed_observed": true,
+    "projector_only_authority_posture": true,
+    "runtime_handoff_materialize_contracts_green": true
+  },
+  "findings": {
+    "blocker": [],
+    "major": [
+      {
+        "detail": "Browser projector path is contract-validated and deterministic in CI scripts, but cross-browser engine matrix validation evidence is not fully explicit in this assessment run.",
+        "id": "browser-matrix-validation-scope"
+      }
+    ],
+    "minor": [
+      {
+        "detail": "Expected deprecation warnings from hash-default compat helpers remain during migration window.",
+        "id": "compat-window-deprecation-noise"
+      }
+    ]
+  },
+  "gate_groups": {
+    "browser_projector": {
+      "checks": [
+        {
+          "name": "metaverse-kit no-authority",
+          "ok": true
+        },
+        {
+          "name": "metaverse-kit portal contract",
+          "ok": true
+        },
+        {
+          "name": "metaverse-kit runtime-handoff wave30 contract",
+          "ok": true
+        },
+        {
+          "name": "metaverse-kit runtime-handoff wave31 contract",
+          "ok": true
+        },
+        {
+          "name": "metaverse-kit runtime-materialize wave31 contract",
+          "ok": true
+        },
+        {
+          "name": "metaverse-kit release verify",
+          "ok": true
+        }
+      ],
+      "failed": 0,
+      "passed": 6,
+      "total": 6
+    },
+    "closure_ops": {
+      "checks": [
+        {
+          "name": "atomic workspace ingest gate",
+          "ok": true
+        },
+        {
+          "name": "metaverse ops rollback restore drill",
+          "ok": true
+        },
+        {
+          "name": "workspace closure spine smoke",
+          "ok": true
+        }
+      ],
+      "failed": 0,
+      "passed": 3,
+      "total": 3
+    },
+    "kernel": {
+      "checks": [
+        {
+          "name": "atomic vnext replay parity",
+          "ok": true
+        },
+        {
+          "name": "atomic vnext api compat",
+          "ok": true
+        },
+        {
+          "name": "atomic vnext coq parity",
+          "ok": true
+        },
+        {
+          "name": "atomic release gate",
+          "ok": true
+        }
+      ],
+      "failed": 0,
+      "passed": 4,
+      "total": 4
+    },
+    "metaverse_runtime": {
+      "checks": [
+        {
+          "name": "metaverse tetragrammatron gate",
+          "ok": true
+        },
+        {
+          "name": "metaverse ast-spherepack gate",
+          "ok": true
+        },
+        {
+          "name": "metaverse living-xml gate",
+          "ok": true
+        },
+        {
+          "name": "metaverse identity gate",
+          "ok": true
+        },
+        {
+          "name": "metaverse seed-algebra gate",
+          "ok": true
+        },
+        {
+          "name": "metaverse lane16 gate",
+          "ok": true
+        }
+      ],
+      "failed": 0,
+      "passed": 6,
+      "total": 6
+    }
+  },
+  "ops_rollback_release": {
+    "closure_spine_green": true,
+    "ops_rollback_restore_drill_green": true,
+    "release_gate_green": true,
+    "workspace_ingest_gate_green": true
+  },
+  "recommendation": "Ready for production",
+  "launch_scope_note": "Browser projection is production-approved within currently validated contract scope; broader cross-browser matrix claims remain bounded to validated surfaces.",
+  "v": "metaverse.production_readiness.v0"
+}
