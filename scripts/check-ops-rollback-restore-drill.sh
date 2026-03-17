@@ -67,7 +67,13 @@ SHARD_DIGESTS="$(cat "$SH_A")"
 bash "$ROOT/scripts/ops-rollback-restore-must-reject.sh" >/dev/null
 
 RUNTIME_CONFORMANCE="$ROOT/runtime/world/trace/room.runtime.conformance.json"
-[[ -f "$RUNTIME_CONFORMANCE" ]] || bash "$ROOT/runtime/world/load-ir.sh" "$ROOT/world-ir/build/room.ir.json" >/dev/null
+if [[ ! -f "$RUNTIME_CONFORMANCE" ]]; then
+  IR_INPUT="$ROOT/world-ir/build/room.ir.json"
+  if [[ ! -f "$IR_INPUT" ]]; then
+    IR_INPUT="$ROOT/world-ir/examples/room-with-entity.json"
+  fi
+  bash "$ROOT/runtime/world/load-ir.sh" "$IR_INPUT" >/dev/null
+fi
 
 python3 - <<PY > "$ATTEST"
 import json,hashlib
