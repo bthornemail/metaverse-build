@@ -1,0 +1,18 @@
+{
+  "id": "world:bad-data",
+  "name": "bad-data-world",
+  "authority": "advisory",
+  "schema": "tetragrammatron.world.v1",
+  "groups": [
+    {
+      "id": "group:bad",
+      "name": "bad",
+      "records": [
+        {
+          "id": "record:bad",
+          "data": "not an object"
+        }
+      ]
+    }
+  ]
+}

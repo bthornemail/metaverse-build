@@ -1,0 +1,1 @@
+{"authority":"advisory","language":"javascript","module":"crosslang.mul","source":"function mul(a, b) { return a * b; }\n","v":"tetragrammatron.ast_spherepack.single_input.v0"}

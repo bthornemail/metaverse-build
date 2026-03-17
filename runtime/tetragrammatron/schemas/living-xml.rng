@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <element name="fs">
+      <attribute name="code">
+        <value>0x1C</value>
+      </attribute>
+      <optional>
+        <attribute name="tick">
+          <data type="integer">
+            <param name="minInclusive">1</param>
+            <param name="maxInclusive">7</param>
+          </data>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <element name="gs">
+          <attribute name="code">
+            <value>0x1D</value>
+          </attribute>
+          <oneOrMore>
+            <element name="rs">
+              <attribute name="code">
+                <value>0x1E</value>
+              </attribute>
+              <oneOrMore>
+                <element name="us">
+                  <attribute name="code">
+                    <value>0x1F</value>
+                  </attribute>
+                  <text/>
+                </element>
+              </oneOrMore>
+            </element>
+          </oneOrMore>
+        </element>
+      </oneOrMore>
+    </element>
+  </start>
+</grammar>

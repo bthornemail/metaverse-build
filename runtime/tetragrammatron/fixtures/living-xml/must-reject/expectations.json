@@ -1,0 +1,18 @@
+{
+  "bad-empty-rs.xml": "structure",
+  "bad-fs-extra-attr.xml": "attr",
+  "bad-gs-extra-attr.xml": "attr",
+  "bad-malformed-unclosed.xml": "xml",
+  "bad-missing-gs.xml": "structure",
+  "bad-mixed-text-in-rs.xml": "terminal",
+  "bad-non-terminal-us.xml": "terminal",
+  "bad-root-code.xml": "code",
+  "bad-rs-before-gs.xml": "structure",
+  "bad-tick-negative.xml": "tick",
+  "bad-tick-nonint.xml": "tick",
+  "bad-tick-on-child.xml": "attr",
+  "bad-tick.xml": "tick",
+  "bad-tick-zero.xml": "tick",
+  "bad-unknown-child.xml": "structure",
+  "bad-us-missing-code.xml": "attr"
+}

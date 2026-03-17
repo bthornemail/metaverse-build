@@ -1,0 +1,1 @@
+{"expected_clock":1,"expected_sid":"sha256:5a1c5c94b809564fdf6eba7abcdcf46b3acb9ed0f73c60163484d9b72c7238c4","expected_states":[8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8],"expected_sync_all":[true,true,true,true],"initial_states":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"kind":"lane_full","steps":1}

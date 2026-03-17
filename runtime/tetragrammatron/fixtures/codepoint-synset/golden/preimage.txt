@@ -1,0 +1,14 @@
+VERSION	codepoint-synset.v0
+CODEPOINT_COUNT	3
+CP	0041	name=LATIN CAPITAL LETTER A	cat=Lu	comb=0	bidi=L	script=Latin
+WORD	0041	word=alpha	pos=n	synset=wn:greek_letter.n.01
+WORD	0041	word=letter	pos=n	synset=wn:letter.n.01
+CP	03A9	name=GREEK CAPITAL LETTER OMEGA	cat=Lu	comb=0	bidi=L	script=Greek
+WORD	03A9	word=omega	pos=n	synset=wn:greek_letter.n.01
+WORD	03A9	word=symbol	pos=n	synset=wn:symbol.n.01
+CP	4E2D	name=CJK UNIFIED IDEOGRAPH-4E2D	cat=Lo	comb=0	bidi=L	script=Han
+WORD	4E2D	word=middle	pos=n	synset=wn:center.n.01
+SYNSET	wn:greek_letter.n.01	words=alpha,omega	fano_point=2	fano_line=3
+SYNSET	wn:letter.n.01	words=letter	fano_point=1	fano_line=1
+SYNSET	wn:symbol.n.01	words=symbol	fano_point=4	fano_line=7
+SYNSET	wn:center.n.01	words=middle	fano_point=5	fano_line=3

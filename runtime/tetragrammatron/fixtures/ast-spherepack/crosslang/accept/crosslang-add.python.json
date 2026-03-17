@@ -1,0 +1,1 @@
+{"authority":"advisory","language":"python","module":"crosslang.add","source":"def add(a, b):\n    return a + b\n","v":"tetragrammatron.ast_spherepack.single_input.v0"}

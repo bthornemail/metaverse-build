@@ -1,0 +1,8 @@
+<fs code="0x1C" tick="2">
+  <gs code="0x1D">
+    <rs code="0x1E">
+      <us code="0x1F">alpha</us>
+      <us code="0x1F">beta</us>
+    </rs>
+  </gs>
+</fs>

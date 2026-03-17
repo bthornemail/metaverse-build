@@ -1,0 +1,45 @@
+{
+  "id": "world:rich",
+  "name": "xml-rich-world",
+  "authority": "advisory",
+  "schema": "tetragrammatron.world.v1",
+  "groups": [
+    {
+      "id": "group:alpha",
+      "name": "alpha",
+      "records": [
+        {
+          "id": "record:hero",
+          "data": {
+            "active": true,
+            "inventory": ["key", "map", "torch"],
+            "stats": {
+              "hp": 42,
+              "mana": 9
+            },
+            "title": "Seeker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "group:beta",
+      "name": "beta",
+      "records": [
+        {
+          "id": "record:beacon",
+          "data": {
+            "enabled": false,
+            "modes": ["scan", "relay"],
+            "position": {
+              "x": 3,
+              "y": 5,
+              "z": 8
+            },
+            "signal": 0.875
+          }
+        }
+      ]
+    }
+  ]
+}

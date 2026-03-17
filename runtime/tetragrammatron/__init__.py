@@ -1,0 +1,1 @@
+"""Tetragrammatron runtime slice."""

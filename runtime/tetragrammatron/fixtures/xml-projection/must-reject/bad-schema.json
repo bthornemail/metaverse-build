@@ -1,0 +1,7 @@
+{
+  "id": "world:bad-schema",
+  "name": "bad-schema-world",
+  "authority": "advisory",
+  "schema": "wrong.schema.v1",
+  "groups": []
+}

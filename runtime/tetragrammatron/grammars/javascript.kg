@@ -1,0 +1,14 @@
+# tetragrammatron.kg.v0
+language javascript
+
+kind function id=100
+kind return id=101
+kind binop id=102
+kind param id=103
+kind number id=104
+kind name id=105
+
+binop +=add
+binop -=sub
+binop *=mul
+binop /=div

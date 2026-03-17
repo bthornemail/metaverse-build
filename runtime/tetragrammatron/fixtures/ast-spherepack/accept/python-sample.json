@@ -1,0 +1,1 @@
+{"authority":"advisory","language":"python","module":"demo.spherepack","sources":{"a.py":"def add(a,b):\n    return a + b\n\n\ndef inc(x):\n    return x + 1\n","b.py":"def add2(a,b):\n    return a + b\n"},"v":"tetragrammatron.ast_spherepack.input.v0"}

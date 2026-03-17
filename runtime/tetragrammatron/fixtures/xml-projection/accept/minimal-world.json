@@ -1,0 +1,22 @@
+{
+  "id": "world:test",
+  "name": "xml-world",
+  "authority": "advisory",
+  "schema": "tetragrammatron.world.v1",
+  "groups": [
+    {
+      "id": "group:alpha",
+      "name": "alpha",
+      "records": [
+        {
+          "id": "record:1",
+          "data": {
+            "active": true,
+            "hp": 10,
+            "label": "npc"
+          }
+        }
+      ]
+    }
+  ]
+}

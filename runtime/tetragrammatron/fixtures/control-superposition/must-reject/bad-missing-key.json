@@ -1,0 +1,16 @@
+{
+  "v": "tetragrammatron.control_superposition.v0",
+  "authority": "advisory",
+  "upper_bound_sphere": {"start": 0, "end": 179},
+  "root_block": [60, 61, 62, 63, 64],
+  "language_boundary": [65, 255],
+  "public_space": [179, 60, 61, 62, 0],
+  "inner_point_space": [179, 60, 61, 255, 62, 63, 255, 64, 65, 0],
+  "private_space": [255, 179, 62, 60, 0, 65],
+  "klein_points": [0, 1, 2],
+  "tetrahedral_layers": [
+    {"name": "ABCD", "codes": ["FS", "GS", "RS", "US"]},
+    {"name": "abcd", "codes": ["fs", "gs", "rs", "us"]},
+    {"name": "a'b'c'd'", "codes": ["fraktur_fs", "fraktur_gs", "fraktur_rs", "fraktur_us"]}
+  ]
+}

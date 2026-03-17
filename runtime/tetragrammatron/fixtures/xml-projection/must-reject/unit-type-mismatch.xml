@@ -1,0 +1,1 @@
+<control code="0x1C"><world id="w" name="n" authority="advisory" schema="tetragrammatron.world.v1"><control code="0x1D"><group id="g" name="grp"><control code="0x1E"><record id="r"><control code="0x1F"><unit key="hp" type="number">"not-a-number"</unit></control></record></control></group></control></world></control>

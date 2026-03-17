@@ -1,0 +1,1 @@
+{"authority":"advisory","language":"python","module":"crosslang.mul","source":"def mul(a, b):\n    return a * b\n","v":"tetragrammatron.ast_spherepack.single_input.v0"}

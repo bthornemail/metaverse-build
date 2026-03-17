@@ -107,3 +107,39 @@ auth_pre_hash_after=$(python3 -c 'import hashlib,sys;print(hashlib.sha256(open(s
 } > "$AUTH_REPORT"
 
 sed -n '1,200p' "$AUTH_REPORT"
+
+TETRA_REPORT="$ROOT/reports/phase27C-tetragrammatron.txt"
+
+set +e
+tetra_output=$(PYTHONPATH="$ROOT" python3 - <<'PY' 2>&1
+from runtime.tetragrammatron.control.router import FS, GS, RS, US, route
+
+world = route(FS, "create", "test-world", {"mode": "lifecycle"})
+group = route(GS, "create", "test-group", {"kind": "demo"})
+world2 = route(GS, "add", world, group)
+
+record = route(RS, "create", {"value": 1, "kind": "sample"})
+record2 = route(US, "set", record, "value", 42)
+
+assert len(world.get("groups", [])) == 0
+assert len(world2.get("groups", [])) == 1
+assert route(US, "get", record2, "value") == 42
+assert route(US, "validate", route(US, "get", record2, "value"), "number")
+print("PASS: tetragrammatron FS->GS->RS->US roundtrip")
+PY
+)
+tetra_status=$?
+set -e
+
+{
+  echo "# Phase 27C — Tetragrammatron Control-Code Roundtrip"
+  echo "Date: $(date -Iseconds)"
+  echo "Status: $tetra_status"
+  echo "$tetra_output"
+} > "$TETRA_REPORT"
+
+sed -n '1,200p' "$TETRA_REPORT"
+
+if [ "$tetra_status" -ne 0 ]; then
+  exit 1
+fi
