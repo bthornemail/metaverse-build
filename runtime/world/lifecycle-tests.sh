@@ -6,6 +6,9 @@ REPORT="$ROOT/reports/phase27-lifecycle.txt"
 AUTH_REPORT="$ROOT/reports/phase27B-authority.txt"
 
 IR="$ROOT/world-ir/build/room.ir.json"
+if [[ ! -f "$IR" ]]; then
+  IR="$ROOT/world-ir/examples/room-with-entity.json"
+fi
 SEED_TRACE="$ROOT/runtime/world/trace/room.seed.jsonl"
 SNAPSHOT="$ROOT/runtime/world/snapshots/room.snapshot.json"
 EVENTS="$ROOT/runtime/world/trace/room.lifecycle.jsonl"
