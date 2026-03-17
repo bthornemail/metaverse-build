@@ -8,6 +8,9 @@ TRACE_DIR="$ROOT/runtime/world/trace"
 SNAP_DIR="$ROOT/runtime/world/snapshots"
 
 IR="$ROOT/world-ir/build/room.ir.json"
+if [[ ! -f "$IR" ]]; then
+  IR="$ROOT/world-ir/examples/room-with-entity.json"
+fi
 BASE_SNAPSHOT="$SNAP_DIR/room.snapshot.json"
 
 mkdir -p "$STATE_DIR" "$TRACE_DIR" "$SNAP_DIR" "$ROOT/reports"

@@ -6,6 +6,9 @@ STATE_DIR="${STATE_DIR:-$ROOT/runtime/shards/state}"
 REPORT="${REPORT:-$ROOT/reports/phase34-shards.txt}"
 
 IR="$ROOT/world-ir/build/room.ir.json"
+if [[ ! -f "$IR" ]]; then
+  IR="$ROOT/world-ir/examples/room-with-entity.json"
+fi
 BASE_SNAPSHOT="$ROOT/runtime/world/snapshots/room.snapshot.json"
 TRACE="$STATE_DIR/zone.trace.jsonl"
 SNAPSHOT="$STATE_DIR/zone.snapshot.json"

@@ -6,6 +6,9 @@ STATE_DIR="${STATE_DIR:-$ROOT/runtime/checkpoint/state}"
 REPORT="${REPORT:-$ROOT/reports/phase33B-rolling.txt}"
 
 IR="$ROOT/world-ir/build/room.ir.json"
+if [[ ! -f "$IR" ]]; then
+  IR="$ROOT/world-ir/examples/room-with-entity.json"
+fi
 BASE_SNAPSHOT="$ROOT/runtime/world/snapshots/room.snapshot.json"
 TRACE_FULL="$STATE_DIR/rolling.trace.jsonl"
 
